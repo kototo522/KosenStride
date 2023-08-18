@@ -15,8 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.kosenstride.ui.home.HomeScreen
+import com.example.kosenstride.ui.setting.SettingScreen
+import com.example.kosenstride.ui.todo.ToDoListScreen
 
 sealed class BottomBarScreen(
     val route: String,
@@ -27,26 +32,6 @@ sealed class BottomBarScreen(
     object ToDoList : BottomBarScreen(route = "todoList", title = "ToDoList", icon = Icons.Default.List)
     object Setting : BottomBarScreen(route = "setting", title = "Setting", icon = Icons.Default.Settings)
 }
-//
-//@Composable
-//fun BottomNavGraph(
-//    navController: NavHostController
-//) {
-//    NavHost(
-//        navController = navController,
-//        startDestination = BottomBarScreen.Home.route
-//    ) {
-//        composable(route = BottomBarScreen.Home.route) {
-//            HomeScreen()
-//        }
-//        composable(route = BottomBarScreen.ToDoList.route) {
-//            ToDoListScreen()
-//        }
-//        composable(route = BottomBarScreen.Setting.route) {
-//            SettingScreen()
-//        }
-//    }
-//}
 
     @Composable
     fun BottomNavigationBar() {
@@ -61,6 +46,20 @@ sealed class BottomBarScreen(
         val currentRoute = navStackBackEntry?.destination?.route
 
         Surface {
+            NavHost(
+                navController = navController,
+                startDestination = BottomBarScreen.Home.route
+            ) {
+                composable(route = BottomBarScreen.Home.route) {
+                    HomeScreen()
+                }
+                composable(route = BottomBarScreen.ToDoList.route) {
+                    ToDoListScreen()
+                }
+                composable(route = BottomBarScreen.Setting.route) {
+                    SettingScreen()
+                }
+            }
             NavigationBar(
                 modifier = Modifier.background(MaterialTheme.colorScheme.background),
                 contentColor = MaterialTheme.colorScheme.primary

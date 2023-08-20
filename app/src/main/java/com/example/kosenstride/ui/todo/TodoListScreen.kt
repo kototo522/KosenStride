@@ -14,7 +14,7 @@ data class CardItem(
 )
 
 val CardItemList = listOf(
-    CardItem("Task 1", "数値計算 WebClass", false,false),
+    CardItem("Task 1", "数値計算 WebClass", false,true),
     CardItem("Task 2", "電気回路 プリント 課題８", true, false),
     CardItem("Task 3", "電気回路 プリント 課題９", false, false),
 )

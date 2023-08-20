@@ -29,6 +29,12 @@ import com.example.kosenstride.ui.todo.CardItem
 
 @Composable
 fun ListCard(index: Int, cardItem: CardItem, modifier: Modifier = Modifier) {
+    val notificationColor =
+        if(cardItem.notifications){Color.Blue}
+        else{Color.DarkGray}
+    val shareButtonColor =
+        if(cardItem.share){Color.Blue}
+        else{Color.DarkGray}
     Card(
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(
@@ -70,6 +76,7 @@ fun ListCard(index: Int, cardItem: CardItem, modifier: Modifier = Modifier) {
                         modifier = modifier
                             .weight(1f)
                             .width(20.dp),
+                        tint = notificationColor
                     )
                 }
                 IconButton(onClick = { /* TODO */ }) {
@@ -79,6 +86,7 @@ fun ListCard(index: Int, cardItem: CardItem, modifier: Modifier = Modifier) {
                         modifier = modifier
                             .weight(1f)
                             .width(20.dp),
+                        tint = shareButtonColor
                     )
                 }
                 IconButton(onClick = { /* TODO */ }) {

@@ -25,9 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.kosenstride.ui.todo.CardItem
 
 @Composable
-fun ListCard(modifier: Modifier = Modifier) {
+fun ListCard(index: Int, cardItem: CardItem, modifier: Modifier = Modifier) {
     Card(
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(
@@ -37,10 +38,10 @@ fun ListCard(modifier: Modifier = Modifier) {
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "sample title",
+                    text = "${index+1}. ${cardItem.title}",
                     modifier = Modifier
                         .padding(
-                            horizontal = 24.dp, vertical = 8.dp
+                            horizontal = 12.dp, vertical = 8.dp
                         )
                         .weight(5f),
                     style = MaterialTheme.typography.titleLarge,
@@ -50,7 +51,7 @@ fun ListCard(modifier: Modifier = Modifier) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(24.dp)
+                        .height(18.dp)
                         .weight(1f),
                 ) {
                 }

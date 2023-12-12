@@ -123,5 +123,5 @@ fun ListCard(index: Int, cardItem: CardItem, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PreviewListCard() {
-    ListCard(index = 1, cardItem = CardItem("Task 1", "数値計算 WebClass", "text","2023/8/20/17:00",  false,true))
+    ListCard(index = 1, cardItem = CardItem("数値計算 WebClass", "text","2023/8/20/17:00",  false,true))
 }

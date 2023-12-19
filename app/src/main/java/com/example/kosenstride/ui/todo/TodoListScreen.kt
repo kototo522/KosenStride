@@ -14,8 +14,8 @@ data class CardItem(
     val title: String?,
     val text: String?,
     val dateTime: String,
-    val notifications: Boolean,
-    val share: Boolean,
+    var notifications: Boolean,
+    var share: Boolean,
 )
 
 val CardItemList = listOf(
@@ -24,8 +24,8 @@ val CardItemList = listOf(
         share = true
     ),
     CardItem("数値計算 WebClass", "問題2", "2023/8/20/18:00",
-        notifications = false,
-        share = true
+        notifications = true,
+        share = false
     ),
     CardItem("数値計算 WebClass", "問題3", "2023/8/20/19:00",
         notifications = false,
@@ -40,7 +40,7 @@ fun ToDoListScreen(){
         horizontalAlignment = Alignment.Start,
         ) {
         itemsIndexed(CardItemList) { index, CardItem ->
-            ListCard(index, CardItemList[index], Modifier)
+            ListCard(index, CardItemList[index])
         }
     }
 }

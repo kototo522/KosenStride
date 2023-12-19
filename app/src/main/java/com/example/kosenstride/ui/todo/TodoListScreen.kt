@@ -1,13 +1,27 @@
 package com.example.kosenstride.ui.todo
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.kosenstride.ui.todo.component.ListCard
 
 data class CardItem(
@@ -34,18 +48,32 @@ val CardItemList = listOf(
 )
 @Composable
 fun ToDoListScreen(){
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
-        horizontalAlignment = Alignment.Start,
+    Column(modifier = Modifier.padding(top = 16.dp)) {
+        Button(
+            onClick = { /* Do something */ },
+            modifier = Modifier.align(Alignment.End).height(40.dp),
+            colors = ButtonDefaults.buttonColors(Color.Transparent)) {
+            Icon(
+                imageVector = Icons.Filled.ArrowDownward,
+                contentDescription = "並び替え",
+                modifier = Modifier.width(20.dp),
+                tint = Color.Black
+            )
+            Text(text = "並び替え", fontSize = 12.sp, modifier = Modifier.height(20.dp), color = Color.Black)
+        }
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
+            horizontalAlignment = Alignment.Start,
         ) {
-        itemsIndexed(CardItemList) { index, CardItem ->
-            ListCard(index, CardItemList[index])
+            itemsIndexed(CardItemList) { index, CardItem ->
+                ListCard(index, CardItemList[index])
+            }
         }
     }
 }
 
-@Preview
+@Preview(backgroundColor = 244)
 @Composable
 fun PreviewTodoListScreen() {
     ToDoListScreen()

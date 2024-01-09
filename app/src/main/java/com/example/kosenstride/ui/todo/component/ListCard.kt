@@ -51,17 +51,15 @@ fun ListCard(
     val isDeleteModalVisible = rememberSaveable { mutableStateOf(false) }
 
     val notificationColor =
-        if (cardItem.notifications)
-            {
-                Color.Blue
-            } else {
+        if (cardItem.notifications) {
+            Color.Blue
+        } else {
             Color.DarkGray
         }
     val switchShareIcon =
-        if (cardItem.share)
-            {
-                Icons.Default.PeopleAlt
-            } else {
+        if (cardItem.share) {
+            Icons.Default.PeopleAlt
+        } else {
             Icons.Filled.Person
         }
 

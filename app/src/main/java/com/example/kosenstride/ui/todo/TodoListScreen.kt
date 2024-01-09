@@ -57,7 +57,7 @@ val CardItemList =
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToDoListScreen(navController: NavHostController)  {
+fun ToDoListScreen(navController: NavHostController) {
     val expanded = remember { mutableStateOf(false) }
 
     Scaffold(

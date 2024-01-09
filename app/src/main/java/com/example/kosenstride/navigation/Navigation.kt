@@ -53,29 +53,28 @@ fun Navigation() {
                     CreateTodoScreen(navController)
                 }
             }
-            if (currentRoute != "createTodo")
-                {
-                    NavigationBar(
-                        modifier =
-                            Modifier.align(Alignment.BottomCenter)
-                                .background(MaterialTheme.colorScheme.background),
-                        contentColor = MaterialTheme.colorScheme.primary,
-                    ) {
-                        screenItems.forEach { screen ->
-                            NavigationBarItem(
-                                icon = { Icon(imageVector = screen.icon, contentDescription = null) },
-                                label = { Text(text = screen.title) },
-                                selected = currentRoute == screen.route,
-                                onClick = {
-                                    navController.navigate(screen.route) {
-                                        popUpTo(navController.graph.startDestinationId)
-                                        launchSingleTop = true
-                                    }
-                                },
-                            )
-                        }
+            if (currentRoute != "createTodo") {
+                NavigationBar(
+                    modifier =
+                        Modifier.align(Alignment.BottomCenter)
+                            .background(MaterialTheme.colorScheme.background),
+                    contentColor = MaterialTheme.colorScheme.primary,
+                ) {
+                    screenItems.forEach { screen ->
+                        NavigationBarItem(
+                            icon = { Icon(imageVector = screen.icon, contentDescription = null) },
+                            label = { Text(text = screen.title) },
+                            selected = currentRoute == screen.route,
+                            onClick = {
+                                navController.navigate(screen.route) {
+                                    popUpTo(navController.graph.startDestinationId)
+                                    launchSingleTop = true
+                                }
+                            },
+                        )
                     }
                 }
+            }
         }
     }
 }

@@ -51,7 +51,8 @@ import java.util.Date
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateTodoScreen(navController: NavController) {
-    val datePickerState = rememberDatePickerState(
+    val datePickerState =
+        rememberDatePickerState(
             initialSelectedDateMillis = Instant.now().toEpochMilli(),
         )
     val timePickerState = rememberTimePickerState()
@@ -78,9 +79,9 @@ fun CreateTodoScreen(navController: NavController) {
     Column {
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 12.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp, horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             IconButton(onClick = { navController.navigate(route = BottomBarScreen.ToDoList.route) }) {
@@ -92,12 +93,14 @@ fun CreateTodoScreen(navController: NavController) {
             }
             Button(
                 onClick = {
-                    if(addTitleText == "" || addText == ""){
-                        Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
-                    }else{
+                    if (addTitleText == "" || addText == "")
+                        {
+                            Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
+                        } else {
                         navController.navigate(route = BottomBarScreen.ToDoList.route)
                     }
-                }) {
+                },
+            ) {
                 Text(text = "追加")
             }
         }
@@ -113,9 +116,9 @@ fun CreateTodoScreen(navController: NavController) {
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
                 modifier =
-                Modifier
-                    .padding(vertical = 8.dp, horizontal = 20.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .padding(vertical = 8.dp, horizontal = 20.dp)
+                        .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
@@ -127,9 +130,9 @@ fun CreateTodoScreen(navController: NavController) {
                 text = dateText.value,
                 fontSize = 16.sp,
                 modifier =
-                Modifier
-                    .padding(horizontal = 20.dp)
-                    .clickable { datePickerExpended = true },
+                    Modifier
+                        .padding(horizontal = 20.dp)
+                        .clickable { datePickerExpended = true },
             )
             Text(
                 text = timeText.value,

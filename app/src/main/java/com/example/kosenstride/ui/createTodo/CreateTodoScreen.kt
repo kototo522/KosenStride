@@ -1,6 +1,8 @@
 package com.example.kosenstride.ui.createTodo
 
+import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,11 +34,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.kosenstride.navigation.BottomBarScreen
+import com.example.kosenstride.ui.createTodo.component.AddItem
 import com.example.kosenstride.ui.createTodo.component.ChangeDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -47,8 +51,7 @@ import java.util.Date
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateTodoScreen(navController: NavController) {
-    val datePickerState =
-        rememberDatePickerState(
+    val datePickerState = rememberDatePickerState(
             initialSelectedDateMillis = Instant.now().toEpochMilli(),
         )
     val timePickerState = rememberTimePickerState()
@@ -64,6 +67,7 @@ fun CreateTodoScreen(navController: NavController) {
     val checkedState = remember { mutableStateOf(false) }
     var datePickerExpended by remember { mutableStateOf(false) }
     var timePickerExpended by remember { mutableStateOf(false) }
+    val context: Context = LocalContext.current
 
     val createItems =
         listOf(
@@ -74,9 +78,9 @@ fun CreateTodoScreen(navController: NavController) {
     Column {
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 12.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp, horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             IconButton(onClick = { navController.navigate(route = BottomBarScreen.ToDoList.route) }) {
@@ -86,7 +90,14 @@ fun CreateTodoScreen(navController: NavController) {
                     modifier = Modifier.width(20.dp),
                 )
             }
-            Button(onClick = { navController.navigate(route = BottomBarScreen.ToDoList.route) }) {
+            Button(
+                onClick = {
+                    if(addTitleText == "" || addText == ""){
+                        Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
+                    }else{
+                        navController.navigate(route = BottomBarScreen.ToDoList.route)
+                    }
+                }) {
                 Text(text = "追加")
             }
         }
@@ -94,7 +105,7 @@ fun CreateTodoScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(30.dp))
 
         createItems.forEach { item ->
-            Text(text = item.name, fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp))
+            Text(text = item.name, fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp))
             TextField(
                 value = item.value,
                 onValueChange = {
@@ -102,9 +113,9 @@ fun CreateTodoScreen(navController: NavController) {
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
                 modifier =
-                    Modifier
-                        .padding(vertical = 8.dp, horizontal = 20.dp)
-                        .fillMaxWidth(),
+                Modifier
+                    .padding(vertical = 8.dp, horizontal = 20.dp)
+                    .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
@@ -116,9 +127,9 @@ fun CreateTodoScreen(navController: NavController) {
                 text = dateText.value,
                 fontSize = 16.sp,
                 modifier =
-                    Modifier
-                        .padding(horizontal = 20.dp)
-                        .clickable { datePickerExpended = true },
+                Modifier
+                    .padding(horizontal = 20.dp)
+                    .clickable { datePickerExpended = true },
             )
             Text(
                 text = timeText.value,
@@ -187,9 +198,3 @@ fun CreateTodoScreen(navController: NavController) {
         }
     }
 }
-
-data class AddItem(
-    val name: String,
-    val value: String,
-    val onValueChange: (String) -> Unit,
-)

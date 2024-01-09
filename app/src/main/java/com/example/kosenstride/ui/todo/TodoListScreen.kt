@@ -64,7 +64,6 @@ fun ToDoListScreen(navController: NavHostController) {
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("createTodo") },
-                modifier = Modifier.padding(bottom = 80.dp),
             ) {
                 Icon(Icons.Filled.Add, "Floating action button.")
             }

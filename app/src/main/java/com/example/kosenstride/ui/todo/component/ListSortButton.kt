@@ -23,7 +23,7 @@ fun ListSortButton(expanded: MutableState<Boolean>) {
         onClick = { expanded.value = !expanded.value },
         modifier =
             Modifier
-                .height(40.dp),
+                .height(32.dp),
         colors = ButtonDefaults.buttonColors(Color.Transparent),
     ) {
         Icon(

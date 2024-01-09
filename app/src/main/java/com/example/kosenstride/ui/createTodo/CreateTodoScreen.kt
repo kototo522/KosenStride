@@ -76,37 +76,7 @@ fun CreateTodoScreen(navController: NavController) {
             AddItem("内容", addText) { addText = it },
         )
 
-    Column {
-        Row(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            IconButton(onClick = { navController.navigate(route = BottomBarScreen.ToDoList.route) }) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "閉じる",
-                    modifier = Modifier.width(20.dp),
-                )
-            }
-            Button(
-                onClick = {
-                    if (addTitleText == "" || addText == "")
-                        {
-                            Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
-                        } else {
-                        navController.navigate(route = BottomBarScreen.ToDoList.route)
-                    }
-                },
-            ) {
-                Text(text = "追加")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(30.dp))
-
+    Column(modifier = Modifier.padding(vertical = 24.dp)) {
         createItems.forEach { item ->
             Text(text = item.name, fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp))
             TextField(
@@ -116,9 +86,9 @@ fun CreateTodoScreen(navController: NavController) {
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
                 modifier =
-                    Modifier
-                        .padding(vertical = 8.dp, horizontal = 20.dp)
-                        .fillMaxWidth(),
+                Modifier
+                    .padding(vertical = 8.dp, horizontal = 20.dp)
+                    .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
@@ -130,26 +100,26 @@ fun CreateTodoScreen(navController: NavController) {
                 text = dateText.value,
                 fontSize = 16.sp,
                 modifier =
-                    Modifier
-                        .padding(horizontal = 20.dp)
-                        .clickable { datePickerExpended = true },
+                Modifier
+                    .padding(horizontal = 20.dp)
+                    .clickable { datePickerExpended = true },
             )
             Text(
                 text = timeText.value,
                 fontSize = 16.sp,
                 modifier =
-                    Modifier
-                        .padding(horizontal = 20.dp)
-                        .clickable { timePickerExpended = true },
+                Modifier
+                    .padding(horizontal = 20.dp)
+                    .clickable { timePickerExpended = true },
             )
         }
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(
             modifier =
-                Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(vertical = 12.dp),
+            Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(vertical = 12.dp),
         ) {
             Text(text = "グループ全体に公開する", fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp))
             Switch(
@@ -158,18 +128,47 @@ fun CreateTodoScreen(navController: NavController) {
                 modifier = Modifier.height(14.dp),
             )
         }
+
+        Row(
+            modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 32.dp, horizontal = 12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Button(
+                onClick = {
+                    navController.navigate(route = BottomBarScreen.ToDoList.route)
+                },
+            ) {
+                Text(text = "キャンセル")
+            }
+            Button(
+                onClick = {
+                    if (addTitleText == "" || addText == "") Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
+                    else navController.navigate(route = BottomBarScreen.ToDoList.route)
+                },
+            ) {
+                Text(text = "追加")
+            }
+        }
+
     }
     if (datePickerExpended) {
         DatePickerDialog(
             onDismissRequest = { datePickerExpended = false },
             dismissButton = {
-                Text(text = "キャンセル", modifier = Modifier.padding(10.dp).clickable { datePickerExpended = false })
+                Text(text = "キャンセル", modifier = Modifier
+                    .padding(10.dp)
+                    .clickable { datePickerExpended = false })
             },
             confirmButton = {
                 Text(
                     text = "OK",
                     modifier =
-                        Modifier.padding(10.dp).clickable {
+                    Modifier
+                        .padding(10.dp)
+                        .clickable {
                             val selectedDateMillis = datePickerState.selectedDateMillis
                             dateText.value = ChangeDateFormat(Date(selectedDateMillis!!))
                             datePickerExpended = false
@@ -184,13 +183,17 @@ fun CreateTodoScreen(navController: NavController) {
         DatePickerDialog(
             onDismissRequest = { timePickerExpended = false },
             dismissButton = {
-                Text(text = "キャンセル", modifier = Modifier.padding(10.dp).clickable { timePickerExpended = false })
+                Text(text = "キャンセル", modifier = Modifier
+                    .padding(10.dp)
+                    .clickable { timePickerExpended = false })
             },
             confirmButton = {
                 Text(
                     text = "OK",
                     modifier =
-                        Modifier.padding(10.dp).clickable {
+                    Modifier
+                        .padding(10.dp)
+                        .clickable {
                             timeText.value = "${timePickerState.hour}:${timePickerState.minute}"
                             timePickerExpended = false
                         },

@@ -18,10 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.kosenstride.navigation.BottomBarScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KosenStrideTopAppBar() {
+fun KosenStrideTopAppBar(navController: NavController) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -36,7 +38,7 @@ fun KosenStrideTopAppBar() {
             )
         },
         navigationIcon = {
-            IconButton(onClick = { /* TODO */ }) {
+            IconButton(onClick = { navController.navigate("MyAccount") }) {
                 Icon(
                     imageVector = Icons.Filled.AccountCircle,
                     contentDescription = "アカウントアイコン",
@@ -45,7 +47,7 @@ fun KosenStrideTopAppBar() {
             }
         },
         actions = {
-            IconButton(onClick = { /* TODO */ }) {
+            IconButton(onClick = { navController.navigate("setting") }) {
                 Icon(imageVector = Icons.Default.Settings, contentDescription = "設定")
             }
         },

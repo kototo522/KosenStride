@@ -1,6 +1,7 @@
 package com.example.kosenstride.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
@@ -15,5 +16,5 @@ sealed class BottomBarScreen(
 
     object ToDoList : BottomBarScreen(route = "todoList", title = "ToDoList", icon = Icons.Default.List)
 
-    object Setting : BottomBarScreen(route = "setting", title = "Setting", icon = Icons.Default.Settings)
+    object Chat : BottomBarScreen(route = "chat", title = "Chat", icon = Icons.Default.Chat)
 }

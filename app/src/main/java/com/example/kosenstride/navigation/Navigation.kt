@@ -22,41 +22,44 @@ import com.example.kosenstride.ui.home.HomeScreen
 import com.example.kosenstride.ui.setting.SettingScreen
 import com.example.kosenstride.ui.todo.ToDoListScreen
 
-    @Composable
-    fun Navigation() {
-        val navController = rememberNavController()
-        val screenItems = listOf(
+@Composable
+fun Navigation() {
+    val navController = rememberNavController()
+    val screenItems =
+        listOf(
             BottomBarScreen.Home,
             BottomBarScreen.ToDoList,
             BottomBarScreen.Setting,
         )
-        val navStackBackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navStackBackEntry?.destination?.route
+    val navStackBackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navStackBackEntry?.destination?.route
 
-        Surface {
-            Box(modifier = Modifier.fillMaxSize()) {
-                NavHost(
-                    navController = navController,
-                    startDestination = BottomBarScreen.Home.route
-                ) {
-                    composable(route = BottomBarScreen.Home.route) {
-                        HomeScreen()
-                    }
-                    composable(route = BottomBarScreen.ToDoList.route) {
-                        ToDoListScreen(navController)
-                    }
-                    composable(route = BottomBarScreen.Setting.route) {
-                        SettingScreen()
-                    }
-                    composable(route = "createTodo") {
-                        CreateTodoScreen(navController)
-                    }
+    Surface {
+        Box(modifier = Modifier.fillMaxSize()) {
+            NavHost(
+                navController = navController,
+                startDestination = BottomBarScreen.Home.route,
+            ) {
+                composable(route = BottomBarScreen.Home.route) {
+                    HomeScreen()
                 }
-                if(currentRoute != "createTodo"){
+                composable(route = BottomBarScreen.ToDoList.route) {
+                    ToDoListScreen(navController)
+                }
+                composable(route = BottomBarScreen.Setting.route) {
+                    SettingScreen()
+                }
+                composable(route = "createTodo") {
+                    CreateTodoScreen(navController)
+                }
+            }
+            if (currentRoute != "createTodo")
+                {
                     NavigationBar(
-                        modifier = Modifier.align(Alignment.BottomCenter)
-                            .background(MaterialTheme.colorScheme.background),
-                        contentColor = MaterialTheme.colorScheme.primary
+                        modifier =
+                            Modifier.align(Alignment.BottomCenter)
+                                .background(MaterialTheme.colorScheme.background),
+                        contentColor = MaterialTheme.colorScheme.primary,
                     ) {
                         screenItems.forEach { screen ->
                             NavigationBarItem(
@@ -68,13 +71,11 @@ import com.example.kosenstride.ui.todo.ToDoListScreen
                                         popUpTo(navController.graph.startDestinationId)
                                         launchSingleTop = true
                                     }
-                                }
+                                },
                             )
                         }
                     }
                 }
-            }
         }
     }
-
-
+}

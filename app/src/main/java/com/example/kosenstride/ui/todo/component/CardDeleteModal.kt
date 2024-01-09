@@ -22,7 +22,7 @@ fun CardDeleteModal(isEditModalVisible: MutableState<Boolean>) {
                 Button(
                     onClick = {
                         isEditModalVisible.value = false
-                    }
+                    },
                 ) {
                     Text(text = "削除")
                 }
@@ -31,11 +31,11 @@ fun CardDeleteModal(isEditModalVisible: MutableState<Boolean>) {
                 Button(
                     onClick = {
                         isEditModalVisible.value = false
-                    }
+                    },
                 ) {
                     Text(text = "キャンセル")
                 }
-            }
+            },
         )
     }
 }

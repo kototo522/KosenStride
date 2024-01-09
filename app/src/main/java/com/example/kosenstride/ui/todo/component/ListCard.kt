@@ -41,85 +41,103 @@ import androidx.compose.ui.unit.sp
 import com.example.kosenstride.ui.todo.CardItem
 
 @Composable
-fun ListCard(index: Int, cardItem: CardItem) {
+fun ListCard(
+    index: Int,
+    cardItem: CardItem,
+) {
     var expanded by remember { mutableStateOf(false) }
     val menuItems = listOf("編集", "削除")
     val isEditModalVisible = rememberSaveable { mutableStateOf(false) }
-    var isDeleteModalVisible = rememberSaveable { mutableStateOf(false) }
+    val isDeleteModalVisible = rememberSaveable { mutableStateOf(false) }
 
     val notificationColor =
-        if(cardItem.notifications){Color.Blue}
-        else{Color.DarkGray}
+        if (cardItem.notifications)
+            {
+                Color.Blue
+            } else {
+            Color.DarkGray
+        }
     val switchShareIcon =
-        if(cardItem.share){Icons.Default.PeopleAlt}
-        else{Icons.Filled.Person}
+        if (cardItem.share)
+            {
+                Icons.Default.PeopleAlt
+            } else {
+            Icons.Filled.Person
+        }
 
     Card(
         shape = RoundedCornerShape(size = 5.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.background,
-        ),
-        modifier = Modifier
-            .padding(start = 8.dp, top = 4.dp, end = 8.dp)
-            .border(
-                width = 1.dp,
-                color = Color(0xFF215FA6),
-                shape = RoundedCornerShape(size = 5.dp)
-            )
-            .fillMaxWidth()
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.background,
+            ),
+        modifier =
+            Modifier
+                .padding(start = 8.dp, top = 4.dp, end = 8.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF215FA6),
+                    shape = RoundedCornerShape(size = 5.dp),
+                )
+                .fillMaxWidth(),
     ) {
-        Column{
+        Column {
             Text(
-                text = "${index+1}. ${cardItem.title}",
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    lineHeight = 16.sp,
-                    fontWeight = FontWeight(700),
-                    color = Color(0xFF3D4758),
-                    letterSpacing = 0.5.sp,
-                ),
-                modifier = Modifier.padding(4.dp)
+                text = "${index + 1}. ${cardItem.title}",
+                style =
+                    TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 16.sp,
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFF3D4758),
+                        letterSpacing = 0.5.sp,
+                    ),
+                modifier = Modifier.padding(4.dp),
             )
             Text(
                 text = "${cardItem.text}",
                 modifier = Modifier.padding(start = 20.dp, top = 4.dp),
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    lineHeight = 14.sp,
-                    fontWeight = FontWeight(700),
-                    color = Color(0xFF3D4758),
-                    letterSpacing = 0.5.sp,
-                )
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.End)
-                    .height(40.dp)
-            ) {
-                Text(
-                    text = cardItem.dateTime,
-                    modifier = Modifier
-                        .weight(4f)
-                        .padding(10.dp),
-                    style = TextStyle(
+                style =
+                    TextStyle(
                         fontSize = 14.sp,
                         lineHeight = 14.sp,
                         fontWeight = FontWeight(700),
                         color = Color(0xFF3D4758),
-                        textAlign = TextAlign.Right,
                         letterSpacing = 0.5.sp,
-                    )
+                    ),
+            )
+            Row(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.End)
+                        .height(40.dp),
+            ) {
+                Text(
+                    text = cardItem.dateTime,
+                    modifier =
+                        Modifier
+                            .weight(4f)
+                            .padding(10.dp),
+                    style =
+                        TextStyle(
+                            fontSize = 14.sp,
+                            lineHeight = 14.sp,
+                            fontWeight = FontWeight(700),
+                            color = Color(0xFF3D4758),
+                            textAlign = TextAlign.Right,
+                            letterSpacing = 0.5.sp,
+                        ),
                 )
                 IconButton(onClick = { cardItem.notifications = !cardItem.notifications }) {
                     Icon(
                         imageVector = Icons.Filled.Notifications,
                         contentDescription = "通知",
                         modifier = Modifier.width(20.dp),
-                        tint = notificationColor
+                        tint = notificationColor,
                     )
                 }
-                IconButton(onClick = { cardItem.share = !cardItem.share  }) {
+                IconButton(onClick = { cardItem.share = !cardItem.share }) {
                     Icon(
                         imageVector = switchShareIcon,
                         contentDescription = "共有",
@@ -134,10 +152,13 @@ fun ListCard(index: Int, cardItem: CardItem) {
                     )
                 }
             }
-            Box(modifier = Modifier
-                .width(80.dp)
-                .align(Alignment.End)
-                .background(MaterialTheme.colorScheme.background),) {
+            Box(
+                modifier =
+                    Modifier
+                        .width(80.dp)
+                        .align(Alignment.End)
+                        .background(MaterialTheme.colorScheme.background),
+            ) {
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
@@ -156,10 +177,12 @@ fun ListCard(index: Int, cardItem: CardItem) {
                         })
                     }
                 }
-                if (isEditModalVisible.value) CardEditModal(
-                    isEditModalVisible = isEditModalVisible,
-                    cardItem = cardItem
-                )
+                if (isEditModalVisible.value) {
+                    CardEditModal(
+                        isEditModalVisible = isEditModalVisible,
+                        cardItem = cardItem,
+                    )
+                }
                 if (isDeleteModalVisible.value) CardDeleteModal(isEditModalVisible = isDeleteModalVisible)
             }
         }
@@ -169,5 +192,5 @@ fun ListCard(index: Int, cardItem: CardItem) {
 @Preview
 @Composable
 fun PreviewListCard() {
-    ListCard(index = 1, cardItem = CardItem("数値計算 WebClass", "text","2023/8/20/17:00",  false,true))
+    ListCard(index = 1, cardItem = CardItem("数値計算 WebClass", "text", "2023/8/20/17:00", notifications = false, share = true))
 }

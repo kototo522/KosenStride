@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             KosenStrideTheme {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     Navigation()
                 }

@@ -21,20 +21,22 @@ import androidx.compose.ui.unit.sp
 fun ListSortButton(expanded: MutableState<Boolean>) {
     Button(
         onClick = { expanded.value = !expanded.value },
-        modifier = Modifier
-            .height(40.dp),
-        colors = ButtonDefaults.buttonColors(Color.Transparent)) {
+        modifier =
+            Modifier
+                .height(40.dp),
+        colors = ButtonDefaults.buttonColors(Color.Transparent),
+    ) {
         Icon(
             imageVector = Icons.Filled.ArrowDownward,
             contentDescription = "並び替え",
             modifier = Modifier.width(20.dp),
-            tint = Color.Black
+            tint = Color.Black,
         )
         Text(text = "並び替え", fontSize = 12.sp, modifier = Modifier.height(20.dp), color = Color.Black)
     }
     DropdownMenu(
         expanded = expanded.value,
-        onDismissRequest = { expanded.value = false }
+        onDismissRequest = { expanded.value = false },
     ) {
         DropdownMenuItem(
             onClick = {
@@ -42,7 +44,7 @@ fun ListSortButton(expanded: MutableState<Boolean>) {
             },
             text = {
                 Text(text = "オリジナル")
-            }
+            },
         )
         DropdownMenuItem(
             onClick = {
@@ -50,7 +52,7 @@ fun ListSortButton(expanded: MutableState<Boolean>) {
             },
             text = {
                 Text(text = "期限の早い順")
-            }
+            },
         )
     }
 }

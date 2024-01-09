@@ -9,9 +9,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 sealed class BottomBarScreen(
     val route: String,
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
     object Home : BottomBarScreen(route = "home", title = "Home", icon = Icons.Default.DateRange)
+
     object ToDoList : BottomBarScreen(route = "todoList", title = "ToDoList", icon = Icons.Default.List)
+
     object Setting : BottomBarScreen(route = "setting", title = "Setting", icon = Icons.Default.Settings)
 }

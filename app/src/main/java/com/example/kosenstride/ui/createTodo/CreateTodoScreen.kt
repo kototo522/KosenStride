@@ -38,19 +38,21 @@ fun CreateTodoScreen(navController: NavController) {
     var dateTimeText by remember { mutableStateOf("") }
     val checkedState = remember { mutableStateOf(false) }
 
-    val createItems = listOf(
-        AddItem("タイトル", addTitleText) { addTitleText = it },
-        AddItem("内容", addText) { addText = it },
-        AddItem("期限", dateTimeText) { dateTimeText = it }
-    )
+    val createItems =
+        listOf(
+            AddItem("タイトル", addTitleText) { addTitleText = it },
+            AddItem("内容", addText) { addText = it },
+            AddItem("期限", dateTimeText) { dateTimeText = it },
+        )
 
-    Column{
+    Column {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 12.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp, horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
-        ){
+        ) {
             IconButton(onClick = { navController.navigate(route = BottomBarScreen.ToDoList.route) }) {
                 Icon(
                     imageVector = Icons.Default.Close,
@@ -73,30 +75,33 @@ fun CreateTodoScreen(navController: NavController) {
                     item.onValueChange(it)
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 20.dp)
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .padding(vertical = 8.dp, horizontal = 20.dp)
+                        .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
         }
 
-        Row(modifier = Modifier
-            .align(Alignment.CenterHorizontally)
-            .padding(vertical = 12.dp)){
+        Row(
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = 12.dp),
+        ) {
             Text(text = "グループ全体に公開する", fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp))
             Switch(
                 checked = checkedState.value,
                 onCheckedChange = { checkedState.value = it },
-                modifier = Modifier.height(14.dp)
+                modifier = Modifier.height(14.dp),
             )
         }
-
     }
 }
 
 data class AddItem(
     val name: String,
     val value: String,
-    val onValueChange: (String) -> Unit
+    val onValueChange: (String) -> Unit,
 )

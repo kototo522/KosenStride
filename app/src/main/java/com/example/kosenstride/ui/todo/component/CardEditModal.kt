@@ -1,6 +1,5 @@
 package com.example.kosenstride.ui.todo.component
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -28,7 +26,10 @@ import com.example.kosenstride.ui.todo.CardItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardEditModal(isEditModalVisible: MutableState<Boolean>, cardItem: CardItem) {
+fun CardEditModal(
+    isEditModalVisible: MutableState<Boolean>,
+    cardItem: CardItem,
+) {
     var editedTitleText by remember { mutableStateOf(cardItem.title) }
     var editedText by remember { mutableStateOf(cardItem.text) }
     var dateTimeText by remember { mutableStateOf(cardItem.dateTime) }
@@ -44,13 +45,14 @@ fun CardEditModal(isEditModalVisible: MutableState<Boolean>, cardItem: CardItem)
                     editedTitleText?.let {
                         TextField(
                             value = it,
-                            onValueChange = {
-                                editedTitleText = it
+                            onValueChange = { text ->
+                                editedTitleText = text
                             },
                             textStyle = TextStyle(fontSize = 14.sp),
-                            modifier = Modifier
-                                .padding(vertical = 8.dp, horizontal = 20.dp)
-                                .fillMaxWidth(),
+                            modifier =
+                                Modifier
+                                    .padding(vertical = 8.dp, horizontal = 20.dp)
+                                    .fillMaxWidth(),
                             singleLine = true,
                         )
                     }
@@ -58,26 +60,28 @@ fun CardEditModal(isEditModalVisible: MutableState<Boolean>, cardItem: CardItem)
                     editedText?.let {
                         TextField(
                             value = it,
-                            onValueChange = {
-                                editedText = it
+                            onValueChange = { text ->
+                                editedText = text
                             },
                             textStyle = TextStyle(fontSize = 14.sp),
-                            modifier = Modifier
-                                .padding(vertical = 8.dp, horizontal = 20.dp)
-                                .fillMaxWidth(),
+                            modifier =
+                                Modifier
+                                    .padding(vertical = 8.dp, horizontal = 20.dp)
+                                    .fillMaxWidth(),
                         )
                     }
                     Text(text = "期限", fontSize = 14.sp, modifier = Modifier.height(20.dp))
                     dateTimeText?.let {
                         TextField(
                             value = it,
-                            onValueChange = {
-                                dateTimeText = it
+                            onValueChange = { text ->
+                                dateTimeText = text
                             },
                             textStyle = TextStyle(fontSize = 14.sp),
-                            modifier = Modifier
-                                .padding(vertical = 8.dp, horizontal = 20.dp)
-                                .fillMaxWidth(),
+                            modifier =
+                                Modifier
+                                    .padding(vertical = 8.dp, horizontal = 20.dp)
+                                    .fillMaxWidth(),
                             singleLine = true,
                         )
                     }
@@ -86,14 +90,14 @@ fun CardEditModal(isEditModalVisible: MutableState<Boolean>, cardItem: CardItem)
                             onClick = {
                                 isEditModalVisible.value = false
                             },
-                            modifier = Modifier.padding(end = 32.dp)
+                            modifier = Modifier.padding(end = 32.dp),
                         ) {
                             Text(text = "キャンセル")
                         }
                         Button(
                             onClick = {
                                 isEditModalVisible.value = false
-                            }
+                            },
                         ) {
                             Text(text = "完了")
                         }

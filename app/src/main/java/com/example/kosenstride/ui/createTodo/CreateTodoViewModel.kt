@@ -46,7 +46,7 @@ class CreateTodoViewModel @Inject constructor(
         todoDao.deleteAll()
     }
 
-    fun addTodo(title: String, text: String, dateTime: String, share: Boolean) {
+    fun upsertTodo(title: String, text: String, dateTime: String, share: Boolean) {
         viewModelScope.launch {
             todoDao.upsert(
                 TodoEntity(

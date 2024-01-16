@@ -21,48 +21,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.kosenstride.ui.todo.component.ListCard
 import com.example.kosenstride.ui.todo.component.ListSortButton
+import kotlinx.coroutines.launch
 
-data class CardItem(
-    val title: String,
-    val text: String,
-    val dateTime: String,
-    var notifications: Boolean,
-    var share: Boolean,
-)
-
-val CardItemList =
-    listOf(
-        CardItem(
-            "数値計算 WebClass",
-            "問題１",
-            "2023/8/20/17:00",
-            notifications = false,
-            share = true,
-        ),
-        CardItem(
-            "数値計算 WebClass",
-            "問題2",
-            "2023/8/20/18:00",
-            notifications = true,
-            share = false,
-        ),
-        CardItem(
-            "数値計算 WebClass",
-            "問題3",
-            "2023/8/20/19:00",
-            notifications = false,
-            share = true,
-        ),
-    )
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToDoListScreen(navController: NavHostController, viewModel: TodoListViewModel = hiltViewModel()) {
     val todoUiState by viewModel.uiState.collectAsState()
     val expanded = remember { mutableStateOf(false) }
+
 
     Scaffold(
         floatingActionButton = {
@@ -83,8 +52,8 @@ fun ToDoListScreen(navController: NavHostController, viewModel: TodoListViewMode
                     verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
                 ) {
-                    itemsIndexed(todoUiState.todo) { index, todo ->
-                        ListCard(index, todo)
+                    itemsIndexed(todoUiState.todo) { _ , todo ->
+                        ListCard(todo, viewModel)
                     }
                 }
             }

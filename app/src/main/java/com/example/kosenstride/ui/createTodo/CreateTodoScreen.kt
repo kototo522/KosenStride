@@ -149,7 +149,7 @@ fun CreateTodoScreen(navController: NavController, viewModel: CreateTodoViewMode
                     if (addTitleText == "" || addText == "") {
                         Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
                     } else {
-                        viewModel.addTodo(addTitleText, addText, dateText.value, checkedState.value)
+                        viewModel.upsertTodo(addTitleText, addText, dateText.value, checkedState.value)
                         navController.navigate(route = BottomBarScreen.ToDoList.route)
                     }
                 },

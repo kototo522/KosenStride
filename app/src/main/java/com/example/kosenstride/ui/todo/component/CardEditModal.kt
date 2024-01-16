@@ -23,13 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.kosenstride.data.local.entities.TodoEntity
-import com.example.kosenstride.ui.todo.CardItem
+import com.example.kosenstride.ui.todo.TodoListViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardEditModal(
     isEditModalVisible: MutableState<Boolean>,
     cardItem: TodoEntity,
+    viewModel: TodoListViewModel
 ) {
     var editedTitleText by remember { mutableStateOf(cardItem.title) }
     var editedText by remember { mutableStateOf(cardItem.text) }
@@ -97,7 +97,9 @@ fun CardEditModal(
                         }
                         Button(
                             onClick = {
+
                                 isEditModalVisible.value = false
+                                viewModel.upsertTodo(cardItem.id, editedTitleText, editedText, dateTimeText, cardItem.notifications, cardItem.share)
                             },
                         ) {
                             Text(text = "完了")

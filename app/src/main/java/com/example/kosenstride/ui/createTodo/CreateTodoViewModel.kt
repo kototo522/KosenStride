@@ -1,5 +1,7 @@
 package com.example.kosenstride.ui.createTodo
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kosenstride.data.local.dao.TodoDao
@@ -8,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import java.util.UUID
 import javax.inject.Inject
 
@@ -46,6 +49,7 @@ class CreateTodoViewModel @Inject constructor(
         todoDao.deleteAll()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun upsertTodo(title: String, text: String, dateTime: String, share: Boolean) {
         viewModelScope.launch {
             todoDao.upsert(
@@ -56,6 +60,7 @@ class CreateTodoViewModel @Inject constructor(
                     dateTime = dateTime,
                     notifications = true,
                     share = share,
+                    latistDay = LocalDateTime.now().toString()
                 )
             )
         }

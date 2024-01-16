@@ -12,4 +12,5 @@ data class TodoEntity(
     @ColumnInfo(name = "dateTime") val dateTime: String,
     @ColumnInfo(name = "notifications") var notifications: Boolean,
     @ColumnInfo(name = "share") var share: Boolean,
+    @ColumnInfo(name = "latistDay") var latistDay: String,
 )

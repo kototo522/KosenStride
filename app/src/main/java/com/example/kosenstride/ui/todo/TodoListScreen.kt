@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 fun ToDoListScreen(navController: NavHostController, viewModel: TodoListViewModel = hiltViewModel()) {
     val todoUiState by viewModel.uiState.collectAsState()
     val expanded = remember { mutableStateOf(false) }
+    val sortType = remember { mutableStateOf("追加順") }
 
 
     Scaffold(
@@ -45,15 +46,26 @@ fun ToDoListScreen(navController: NavHostController, viewModel: TodoListViewMode
         Box(modifier = Modifier.padding(it)) {
             Column(modifier = Modifier.padding(top = 16.dp)) {
                 Box(modifier = Modifier.align(Alignment.End)) {
-                    ListSortButton(expanded = expanded)
+                    ListSortButton(expanded = expanded, sortType = sortType)
                 }
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
                 ) {
-                    itemsIndexed(todoUiState.todo) { _ , todo ->
-                        ListCard(todo, viewModel)
+                    itemsIndexed(todoUiState.todo) { index , todo ->
+                        val sortedTodoList = if(sortType.value == "期限の早い順") {
+                            remember(todoUiState.todo) {
+                                todoUiState.todo.sortedBy { it.dateTime }
+                            }
+                        } else if(sortType.value == "期限の遅い順") {
+                            remember(todoUiState.todo) {
+                                todoUiState.todo.sortedByDescending { it.dateTime }
+                            }
+                        } else {
+                            todoUiState.todo
+                        }
+                        ListCard(sortedTodoList[index], viewModel)
                     }
                 }
             }

@@ -38,7 +38,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kosenstride.data.local.entities.TodoEntity
-import com.example.kosenstride.ui.theme.KosenStrideTheme
 import com.example.kosenstride.ui.todo.TodoListViewModel
 
 @Composable

@@ -23,6 +23,7 @@ import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,10 +34,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.kosenstride.data.local.entities.TodoEntity
 import com.example.kosenstride.navigation.BottomBarScreen
 import com.example.kosenstride.ui.createTodo.component.AddItem
 import com.example.kosenstride.ui.createTodo.component.ChangeDateFormat
+import com.example.kosenstride.ui.todo.TodoListViewModel
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -45,7 +49,9 @@ import java.util.Date
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateTodoScreen(navController: NavController) {
+fun CreateTodoScreen(navController: NavController, viewModel: CreateTodoViewModel = hiltViewModel()) {
+    val todoUiState by viewModel.uiState.collectAsState()
+
     val datePickerState =
         rememberDatePickerState(
             initialSelectedDateMillis = Instant.now().toEpochMilli(),
@@ -81,9 +87,9 @@ fun CreateTodoScreen(navController: NavController) {
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
                 modifier =
-                    Modifier
-                        .padding(vertical = 8.dp, horizontal = 20.dp)
-                        .fillMaxWidth(),
+                Modifier
+                    .padding(vertical = 8.dp, horizontal = 20.dp)
+                    .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
@@ -143,6 +149,7 @@ fun CreateTodoScreen(navController: NavController) {
                     if (addTitleText == "" || addText == "") {
                         Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
                     } else {
+                        viewModel.upsertTodo(addTitleText, addText, dateText.value, checkedState.value)
                         navController.navigate(route = BottomBarScreen.ToDoList.route)
                     }
                 },

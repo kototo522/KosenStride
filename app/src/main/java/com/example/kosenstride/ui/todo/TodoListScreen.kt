@@ -13,52 +13,26 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.kosenstride.ui.todo.component.ListCard
 import com.example.kosenstride.ui.todo.component.ListSortButton
+import kotlinx.coroutines.launch
 
-data class CardItem(
-    val title: String?,
-    val text: String?,
-    val dateTime: String,
-    var notifications: Boolean,
-    var share: Boolean,
-)
-
-val CardItemList =
-    listOf(
-        CardItem(
-            "数値計算 WebClass",
-            "問題１",
-            "2023/8/20/17:00",
-            notifications = false,
-            share = true,
-        ),
-        CardItem(
-            "数値計算 WebClass",
-            "問題2",
-            "2023/8/20/18:00",
-            notifications = true,
-            share = false,
-        ),
-        CardItem(
-            "数値計算 WebClass",
-            "問題3",
-            "2023/8/20/19:00",
-            notifications = false,
-            share = true,
-        ),
-    )
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToDoListScreen(navController: NavHostController) {
+fun ToDoListScreen(navController: NavHostController, viewModel: TodoListViewModel = hiltViewModel()) {
+    val todoUiState by viewModel.uiState.collectAsState()
     val expanded = remember { mutableStateOf(false) }
+    val sortType = remember { mutableStateOf("追加順") }
+
 
     Scaffold(
         floatingActionButton = {
@@ -72,15 +46,26 @@ fun ToDoListScreen(navController: NavHostController) {
         Box(modifier = Modifier.padding(it)) {
             Column(modifier = Modifier.padding(top = 16.dp)) {
                 Box(modifier = Modifier.align(Alignment.End)) {
-                    ListSortButton(expanded = expanded)
+                    ListSortButton(expanded = expanded, sortType = sortType)
                 }
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
                 ) {
-                    itemsIndexed(CardItemList) { index, _ ->
-                        ListCard(index, CardItemList[index])
+                    itemsIndexed(todoUiState.todo) { index , todo ->
+                        val sortedTodoList = if(sortType.value == "期限の早い順") {
+                            remember(todoUiState.todo) {
+                                todoUiState.todo.sortedBy { it.dateTime }
+                            }
+                        } else if(sortType.value == "期限の遅い順") {
+                            remember(todoUiState.todo) {
+                                todoUiState.todo.sortedByDescending { it.dateTime }
+                            }
+                        } else {
+                            todoUiState.todo
+                        }
+                        ListCard(sortedTodoList[index], viewModel)
                     }
                 }
             }

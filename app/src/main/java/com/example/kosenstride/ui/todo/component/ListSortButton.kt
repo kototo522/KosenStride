@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ListSortButton(expanded: MutableState<Boolean>) {
+fun ListSortButton(expanded: MutableState<Boolean>, sortType: MutableState<String>) {
     Button(
         onClick = { expanded.value = !expanded.value },
         modifier =
@@ -41,17 +41,28 @@ fun ListSortButton(expanded: MutableState<Boolean>) {
         DropdownMenuItem(
             onClick = {
                 expanded.value = !expanded.value
+                sortType.value = "追加順"
             },
             text = {
-                Text(text = "オリジナル")
+                Text(text = "追加順")
             },
         )
         DropdownMenuItem(
             onClick = {
                 expanded.value = !expanded.value
+                sortType.value = "期限の早い順"
             },
             text = {
                 Text(text = "期限の早い順")
+            },
+        )
+        DropdownMenuItem(
+            onClick = {
+                expanded.value = !expanded.value
+                sortType.value = "期限の遅い順"
+            },
+            text = {
+                Text(text = "期限の遅い順")
             },
         )
     }

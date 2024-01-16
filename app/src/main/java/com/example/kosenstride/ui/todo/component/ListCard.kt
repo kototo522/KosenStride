@@ -35,15 +35,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.kosenstride.ui.todo.CardItem
+import com.example.kosenstride.data.local.entities.TodoEntity
+import com.example.kosenstride.ui.todo.TodoListViewModel
 
 @Composable
 fun ListCard(
-    index: Int,
-    cardItem: CardItem,
+    cardItem: TodoEntity,
+    viewModel: TodoListViewModel,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val menuItems = listOf("編集", "削除")
@@ -52,7 +52,7 @@ fun ListCard(
 
     val notificationColor =
         if (cardItem.notifications) {
-            Color.Blue
+            MaterialTheme.colorScheme.primary
         } else {
             Color.DarkGray
         }
@@ -70,18 +70,18 @@ fun ListCard(
                 containerColor = MaterialTheme.colorScheme.background,
             ),
         modifier =
-            Modifier
-                .padding(start = 8.dp, top = 4.dp, end = 8.dp)
-                .border(
-                    width = 1.dp,
-                    color = Color(0xFF215FA6),
-                    shape = RoundedCornerShape(size = 5.dp),
-                )
-                .fillMaxWidth(),
+        Modifier
+            .padding(start = 8.dp, top = 4.dp, end = 8.dp)
+            .border(
+                width = 1.dp,
+                color = Color(0xFF215FA6),
+                shape = RoundedCornerShape(size = 5.dp),
+            )
+            .fillMaxWidth(),
     ) {
         Column {
             Text(
-                text = "${index + 1}. ${cardItem.title}",
+                text = cardItem.title,
                 style =
                     TextStyle(
                         fontSize = 16.sp,
@@ -93,7 +93,7 @@ fun ListCard(
                 modifier = Modifier.padding(4.dp),
             )
             Text(
-                text = "${cardItem.text}",
+                text = cardItem.text,
                 modifier = Modifier.padding(start = 20.dp, top = 4.dp),
                 style =
                     TextStyle(
@@ -106,17 +106,17 @@ fun ListCard(
             )
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.End)
-                        .height(40.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.End)
+                    .height(40.dp),
             ) {
                 Text(
                     text = cardItem.dateTime,
                     modifier =
-                        Modifier
-                            .weight(4f)
-                            .padding(10.dp),
+                    Modifier
+                        .weight(4f)
+                        .padding(10.dp),
                     style =
                         TextStyle(
                             fontSize = 14.sp,
@@ -127,7 +127,7 @@ fun ListCard(
                             letterSpacing = 0.5.sp,
                         ),
                 )
-                IconButton(onClick = { cardItem.notifications = !cardItem.notifications }) {
+                IconButton(onClick = { viewModel.changeNoticeTodo(cardItem, !(cardItem.notifications)) }) {
                     Icon(
                         imageVector = Icons.Filled.Notifications,
                         contentDescription = "通知",
@@ -135,13 +135,11 @@ fun ListCard(
                         tint = notificationColor,
                     )
                 }
-                IconButton(onClick = { cardItem.share = !cardItem.share }) {
-                    Icon(
-                        imageVector = switchShareIcon,
-                        contentDescription = "共有",
-                        modifier = Modifier.width(20.dp),
-                    )
-                }
+                Icon(
+                    imageVector = switchShareIcon,
+                    contentDescription = "共有",
+                    modifier = Modifier.width(20.dp).padding(top = 10.dp),
+                )
                 IconButton(onClick = { expanded = true }) {
                     Icon(
                         imageVector = Icons.Filled.MoreVert,
@@ -179,16 +177,11 @@ fun ListCard(
                     CardEditModal(
                         isEditModalVisible = isEditModalVisible,
                         cardItem = cardItem,
+                        viewModel = viewModel,
                     )
                 }
-                if (isDeleteModalVisible.value) CardDeleteModal(isEditModalVisible = isDeleteModalVisible)
+                if (isDeleteModalVisible.value) CardDeleteModal(isEditModalVisible = isDeleteModalVisible, id = cardItem.id, viewModel = viewModel)
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewListCard() {
-    ListCard(index = 1, cardItem = CardItem("数値計算 WebClass", "text", "2023/8/20/17:00", notifications = false, share = true))
 }

@@ -38,12 +38,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kosenstride.data.local.entities.TodoEntity
 import com.example.kosenstride.ui.todo.CardItem
 
 @Composable
 fun ListCard(
     index: Int,
-    cardItem: CardItem,
+    cardItem: TodoEntity,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val menuItems = listOf("編集", "削除")
@@ -185,10 +186,4 @@ fun ListCard(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewListCard() {
-    ListCard(index = 1, cardItem = CardItem("数値計算 WebClass", "text", "2023/8/20/17:00", notifications = false, share = true))
 }

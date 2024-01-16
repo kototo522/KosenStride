@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Column {
-//                        KosenStrideTopAppBar()
                         Navigation()
                     }
                 }

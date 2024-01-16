@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.kosenstride.navigation.BottomBarScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,13 +27,14 @@ fun KosenStrideTopAppBar(navController: NavController) {
         title = {
             Text(
                 text = "Kosen Stride",
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    lineHeight = 16.sp,
-                    fontWeight = FontWeight(700),
-                    textAlign = TextAlign.Center,
-                    letterSpacing = 0.7.sp,
-                )
+                style =
+                    TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 16.sp,
+                        fontWeight = FontWeight(700),
+                        textAlign = TextAlign.Center,
+                        letterSpacing = 0.7.sp,
+                    ),
             )
         },
         navigationIcon = {
@@ -51,8 +51,9 @@ fun KosenStrideTopAppBar(navController: NavController) {
                 Icon(imageVector = Icons.Default.Settings, contentDescription = "設定")
             }
         },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-        )
+        colors =
+            TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+            ),
     )
 }

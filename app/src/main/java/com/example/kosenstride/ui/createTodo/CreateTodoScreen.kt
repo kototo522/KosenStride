@@ -12,15 +12,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -86,9 +81,9 @@ fun CreateTodoScreen(navController: NavController) {
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
                 modifier =
-                Modifier
-                    .padding(vertical = 8.dp, horizontal = 20.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .padding(vertical = 8.dp, horizontal = 20.dp)
+                        .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))
@@ -100,26 +95,26 @@ fun CreateTodoScreen(navController: NavController) {
                 text = dateText.value,
                 fontSize = 16.sp,
                 modifier =
-                Modifier
-                    .padding(horizontal = 20.dp)
-                    .clickable { datePickerExpended = true },
+                    Modifier
+                        .padding(horizontal = 20.dp)
+                        .clickable { datePickerExpended = true },
             )
             Text(
                 text = timeText.value,
                 fontSize = 16.sp,
                 modifier =
-                Modifier
-                    .padding(horizontal = 20.dp)
-                    .clickable { timePickerExpended = true },
+                    Modifier
+                        .padding(horizontal = 20.dp)
+                        .clickable { timePickerExpended = true },
             )
         }
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(
             modifier =
-            Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(vertical = 12.dp),
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = 12.dp),
         ) {
             Text(text = "グループ全体に公開する", fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp))
             Switch(
@@ -131,9 +126,9 @@ fun CreateTodoScreen(navController: NavController) {
 
         Row(
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 32.dp, horizontal = 12.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 32.dp, horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Button(
@@ -145,34 +140,40 @@ fun CreateTodoScreen(navController: NavController) {
             }
             Button(
                 onClick = {
-                    if (addTitleText == "" || addText == "") Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
-                    else navController.navigate(route = BottomBarScreen.ToDoList.route)
+                    if (addTitleText == "" || addText == "") {
+                        Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
+                    } else {
+                        navController.navigate(route = BottomBarScreen.ToDoList.route)
+                    }
                 },
             ) {
                 Text(text = "追加")
             }
         }
-
     }
     if (datePickerExpended) {
         DatePickerDialog(
             onDismissRequest = { datePickerExpended = false },
             dismissButton = {
-                Text(text = "キャンセル", modifier = Modifier
-                    .padding(10.dp)
-                    .clickable { datePickerExpended = false })
+                Text(
+                    text = "キャンセル",
+                    modifier =
+                        Modifier
+                            .padding(10.dp)
+                            .clickable { datePickerExpended = false },
+                )
             },
             confirmButton = {
                 Text(
                     text = "OK",
                     modifier =
-                    Modifier
-                        .padding(10.dp)
-                        .clickable {
-                            val selectedDateMillis = datePickerState.selectedDateMillis
-                            dateText.value = ChangeDateFormat(Date(selectedDateMillis!!))
-                            datePickerExpended = false
-                        },
+                        Modifier
+                            .padding(10.dp)
+                            .clickable {
+                                val selectedDateMillis = datePickerState.selectedDateMillis
+                                dateText.value = ChangeDateFormat(Date(selectedDateMillis!!))
+                                datePickerExpended = false
+                            },
                 )
             },
         ) {
@@ -183,20 +184,24 @@ fun CreateTodoScreen(navController: NavController) {
         DatePickerDialog(
             onDismissRequest = { timePickerExpended = false },
             dismissButton = {
-                Text(text = "キャンセル", modifier = Modifier
-                    .padding(10.dp)
-                    .clickable { timePickerExpended = false })
+                Text(
+                    text = "キャンセル",
+                    modifier =
+                        Modifier
+                            .padding(10.dp)
+                            .clickable { timePickerExpended = false },
+                )
             },
             confirmButton = {
                 Text(
                     text = "OK",
                     modifier =
-                    Modifier
-                        .padding(10.dp)
-                        .clickable {
-                            timeText.value = "${timePickerState.hour}:${timePickerState.minute}"
-                            timePickerExpended = false
-                        },
+                        Modifier
+                            .padding(10.dp)
+                            .clickable {
+                                timeText.value = "${timePickerState.hour}:${timePickerState.minute}"
+                                timePickerExpended = false
+                            },
                 )
             },
         ) {

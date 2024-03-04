@@ -149,7 +149,7 @@ fun CreateTodoScreen(navController: NavController, viewModel: CreateTodoViewMode
                     if (addTitleText == "" || addText == "") {
                         Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
                     } else {
-                        viewModel.upsertTodo(addTitleText, addText, dateText.value, checkedState.value)
+                        viewModel.upsertTodo(addTitleText, addText, dateText.value + " " + timeText.value, checkedState.value)
                         navController.navigate(route = BottomBarScreen.ToDoList.route)
                     }
                 },
@@ -206,7 +206,7 @@ fun CreateTodoScreen(navController: NavController, viewModel: CreateTodoViewMode
                         Modifier
                             .padding(10.dp)
                             .clickable {
-                                timeText.value = "${timePickerState.hour}:${timePickerState.minute}"
+                                timeText.value = String.format("%02d:%02d", timePickerState.hour, timePickerState.minute)
                                 timePickerExpended = false
                             },
                 )

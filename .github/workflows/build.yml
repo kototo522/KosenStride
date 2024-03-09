@@ -29,6 +29,7 @@ jobs:
 
       - name: Check spotless
         run: ./gradlew spotlessCheck --no-configuration-cache
+        uses: reviewdog/action-suggester@v1
 
       - name: Build project
         run: ./gradlew assemble

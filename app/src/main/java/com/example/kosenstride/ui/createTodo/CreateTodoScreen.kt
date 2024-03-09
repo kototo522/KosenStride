@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.kosenstride.navigation.BottomBarScreen
+import com.example.kosenstride.navigation.BottomBarItems
 import com.example.kosenstride.ui.createTodo.component.AddItem
 import com.example.kosenstride.ui.createTodo.component.ChangeDateFormat
 import java.time.Instant
@@ -140,7 +140,7 @@ fun CreateTodoScreen(
         ) {
             Button(
                 onClick = {
-                    navController.navigate(route = BottomBarScreen.ToDoList.route)
+                    navController.navigate(route = BottomBarItems.ToDoList.route)
                 },
             ) {
                 Text(text = "キャンセル")
@@ -151,7 +151,7 @@ fun CreateTodoScreen(
                         Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
                     } else {
                         viewModel.upsertTodo(addTitleText, addText, dateText.value + " " + timeText.value, checkedState.value)
-                        navController.navigate(route = BottomBarScreen.ToDoList.route)
+                        navController.navigate(route = BottomBarItems.ToDoList.route)
                     }
                 },
             ) {

@@ -1,4 +1,4 @@
-package com.example.kosenstride.topAppBar
+package com.example.kosenstride.navigation.topAppBar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width

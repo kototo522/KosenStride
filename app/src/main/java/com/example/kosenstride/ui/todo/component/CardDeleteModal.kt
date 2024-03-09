@@ -13,7 +13,7 @@ import com.example.kosenstride.ui.todo.TodoListViewModel
 fun CardDeleteModal(
     isEditModalVisible: MutableState<Boolean>,
     id: String,
-    viewModel: TodoListViewModel
+    viewModel: TodoListViewModel,
 ) {
     Column {
         AlertDialog(

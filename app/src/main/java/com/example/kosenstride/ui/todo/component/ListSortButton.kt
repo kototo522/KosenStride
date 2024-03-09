@@ -18,7 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ListSortButton(expanded: MutableState<Boolean>, sortType: MutableState<String>) {
+fun ListSortButton(
+    expanded: MutableState<Boolean>,
+    sortType: MutableState<String>,
+) {
     Button(
         onClick = { expanded.value = !expanded.value },
         modifier =

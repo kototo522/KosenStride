@@ -30,6 +30,6 @@ fun HomeScreen() {
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "グループ名", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(16.dp))
-        TimeSchedule(dayClassList, mockClassList) //　時間割
+        TimeSchedule(dayClassList, mockClassList) // 　時間割
     }
 }

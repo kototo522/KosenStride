@@ -15,11 +15,11 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateTodoViewModel @Inject constructor(
-
+class CreateTodoViewModel
+@Inject
+constructor(
     private val todoDao: TodoDao,
-
-    ) : ViewModel() {
+) : ViewModel() {
     private val _uiState = MutableStateFlow(TodoUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -33,24 +33,33 @@ class CreateTodoViewModel @Inject constructor(
             todoDao.observeById(id)
         }
 
-    fun upsert(todo: TodoEntity) = viewModelScope.launch {
-        todoDao.upsert(todo)
-    }
+    fun upsert(todo: TodoEntity) =
+        viewModelScope.launch {
+            todoDao.upsert(todo)
+        }
 
-    fun upsertAll(todos: List<TodoEntity>) = viewModelScope.launch {
-        todoDao.upsertAll(todos)
-    }
+    fun upsertAll(todos: List<TodoEntity>) =
+        viewModelScope.launch {
+            todoDao.upsertAll(todos)
+        }
 
-    fun deleteById(id: String) = viewModelScope.launch {
-        todoDao.deleteById(id)
-    }
+    fun deleteById(id: String) =
+        viewModelScope.launch {
+            todoDao.deleteById(id)
+        }
 
-    fun deleteAll() = viewModelScope.launch {
-        todoDao.deleteAll()
-    }
+    fun deleteAll() =
+        viewModelScope.launch {
+            todoDao.deleteAll()
+        }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun upsertTodo(title: String, text: String, dateTime: String, share: Boolean) {
+    fun upsertTodo(
+        title: String,
+        text: String,
+        dateTime: String,
+        share: Boolean,
+    ) {
         viewModelScope.launch {
             todoDao.upsert(
                 TodoEntity(
@@ -60,11 +69,12 @@ class CreateTodoViewModel @Inject constructor(
                     dateTime = dateTime,
                     notifications = true,
                     share = share,
-                    latistDay = LocalDateTime.now().toString()
-                )
+                    latistDay = LocalDateTime.now().toString(),
+                ),
             )
         }
-    } }
+    }
+}
 
 data class TodoUiState(
     val todo: List<TodoEntity> = emptyList(),

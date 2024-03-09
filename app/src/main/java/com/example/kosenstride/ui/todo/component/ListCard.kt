@@ -70,14 +70,14 @@ fun ListCard(
                 containerColor = MaterialTheme.colorScheme.background,
             ),
         modifier =
-        Modifier
-            .padding(start = 8.dp, top = 4.dp, end = 8.dp)
-            .border(
-                width = 1.dp,
-                color = Color(0xFF215FA6),
-                shape = RoundedCornerShape(size = 5.dp),
-            )
-            .fillMaxWidth(),
+            Modifier
+                .padding(start = 8.dp, top = 4.dp, end = 8.dp)
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF215FA6),
+                    shape = RoundedCornerShape(size = 5.dp),
+                )
+                .fillMaxWidth(),
     ) {
         Column {
             Text(
@@ -106,17 +106,17 @@ fun ListCard(
             )
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.End)
-                    .height(40.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.End)
+                        .height(40.dp),
             ) {
                 Text(
                     text = cardItem.dateTime,
                     modifier =
-                    Modifier
-                        .weight(4f)
-                        .padding(10.dp),
+                        Modifier
+                            .weight(4f)
+                            .padding(10.dp),
                     style =
                         TextStyle(
                             fontSize = 14.sp,
@@ -160,17 +160,20 @@ fun ListCard(
                     onDismissRequest = { expanded = false },
                 ) {
                     menuItems.forEach { action ->
-                        DropdownMenuItem(text = { Text(text = action) }, onClick = {
-                            when (action) {
-                                "編集" -> {
-                                    isEditModalVisible.value = true
+                        DropdownMenuItem(
+                            text = { Text(text = action) },
+                            onClick = {
+                                when (action) {
+                                    "編集" -> {
+                                        isEditModalVisible.value = true
+                                    }
+                                    "削除" -> {
+                                        isDeleteModalVisible.value = true
+                                    }
                                 }
-                                "削除" -> {
-                                    isDeleteModalVisible.value = true
-                                }
+                                expanded = false
                             }
-                            expanded = false
-                        })
+                        )
                     }
                 }
                 if (isEditModalVisible.value) {
@@ -180,7 +183,13 @@ fun ListCard(
                         viewModel = viewModel,
                     )
                 }
-                if (isDeleteModalVisible.value) CardDeleteModal(isEditModalVisible = isDeleteModalVisible, id = cardItem.id, viewModel = viewModel)
+                if (isDeleteModalVisible.value) {
+                    CardDeleteModal(
+                        isEditModalVisible = isDeleteModalVisible,
+                        id = cardItem.id,
+                        viewModel = viewModel,
+                    )
+                }
             }
         }
     }

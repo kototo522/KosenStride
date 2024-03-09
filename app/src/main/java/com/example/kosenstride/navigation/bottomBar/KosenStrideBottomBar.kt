@@ -1,4 +1,4 @@
-package com.example.kosenstride.bottomBar
+package com.example.kosenstride.navigation.bottomBar
 
 import androidx.compose.foundation.background
 import androidx.compose.material3.Icon

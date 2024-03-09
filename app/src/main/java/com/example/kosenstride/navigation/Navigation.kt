@@ -60,7 +60,7 @@ fun Navigation() {
                                 fontWeight = FontWeight(700),
                                 textAlign = TextAlign.Center,
                                 letterSpacing = 0.7.sp,
-                                ),
+                            ),
                         )
                     },
                     navigationIcon = {

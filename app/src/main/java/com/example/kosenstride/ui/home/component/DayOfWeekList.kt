@@ -1,6 +1,5 @@
 package com.example.kosenstride.ui.home.component
 
-import android.graphics.fonts.FontStyle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,13 +25,14 @@ fun DayOfWeekList(dayOfWeekList: List<String>) {
         dayOfWeekList.forEach { day ->
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(30.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(size = 5.dp),
-                    ),
+                modifier =
+                    Modifier
+                        .width(50.dp)
+                        .height(30.dp)
+                        .background(
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = RoundedCornerShape(size = 5.dp),
+                        ),
             ) {
                 Text(text = day, color = MaterialTheme.colorScheme.background)
             }

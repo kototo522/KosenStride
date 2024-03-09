@@ -47,7 +47,10 @@ import java.util.Date
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateTodoScreen(navController: NavController, viewModel: CreateTodoViewModel = hiltViewModel()) {
+fun CreateTodoScreen(
+    navController: NavController,
+    viewModel: CreateTodoViewModel = hiltViewModel(),
+) {
     val todoUiState by viewModel.uiState.collectAsState()
 
     val datePickerState =
@@ -85,9 +88,9 @@ fun CreateTodoScreen(navController: NavController, viewModel: CreateTodoViewMode
                 },
                 textStyle = TextStyle(fontSize = 14.sp),
                 modifier =
-                Modifier
-                    .padding(vertical = 8.dp, horizontal = 20.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .padding(vertical = 8.dp, horizontal = 20.dp)
+                        .fillMaxWidth(),
                 singleLine = true,
             )
             Spacer(modifier = Modifier.height(24.dp))

@@ -18,11 +18,14 @@ import androidx.compose.ui.unit.dp
 import com.example.kosenstride.ui.home.Class
 
 @Composable
-fun DayClassList(dayClassList: List<String>, mockClassList: List<Class>) {
+fun DayClassList(
+    dayClassList: List<String>,
+    mockClassList: List<Class>,
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(vertical = 6.dp)
+        modifier = Modifier.padding(vertical = 6.dp),
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically),
@@ -31,7 +34,8 @@ fun DayClassList(dayClassList: List<String>, mockClassList: List<Class>) {
             dayClassList.forEach { day ->
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier
+                    modifier =
+                        Modifier
                             .width(50.dp)
                             .height(60.dp)
                             .background(
@@ -62,13 +66,14 @@ fun DayClassList(dayClassList: List<String>, mockClassList: List<Class>) {
                             }
                         Box(
                             contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .width(50.dp)
-                                .height(60.dp)
-                                .background(
-                                    color = boxColor,
-                                    shape = RoundedCornerShape(size = 5.dp),
-                                ),
+                            modifier =
+                                Modifier
+                                    .width(50.dp)
+                                    .height(60.dp)
+                                    .background(
+                                        color = boxColor,
+                                        shape = RoundedCornerShape(size = 5.dp),
+                                    ),
                         ) {
                             Text(text = className)
                         }

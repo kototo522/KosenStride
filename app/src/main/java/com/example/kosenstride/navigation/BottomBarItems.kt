@@ -6,14 +6,14 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.List
 import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class BottomBarScreen(
+sealed class BottomBarItems(
     val route: String,
     val title: String,
     val icon: ImageVector,
 ) {
-    object Home : BottomBarScreen(route = "home", title = "Home", icon = Icons.Default.DateRange)
+    object Home : BottomBarItems(route = "home", title = "Home", icon = Icons.Default.DateRange)
 
-    object ToDoList : BottomBarScreen(route = "todoList", title = "ToDoList", icon = Icons.Default.List)
+    object ToDoList : BottomBarItems(route = "todoList", title = "ToDoList", icon = Icons.Default.List)
 
-    object Chat : BottomBarScreen(route = "chat", title = "Chat", icon = Icons.Default.Chat)
+    object Chat : BottomBarItems(route = "chat", title = "Chat", icon = Icons.Default.Chat)
 }

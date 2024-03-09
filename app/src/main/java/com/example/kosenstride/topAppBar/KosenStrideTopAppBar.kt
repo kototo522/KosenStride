@@ -1,5 +1,6 @@
 package com.example.kosenstride.topAppBar
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -22,35 +23,15 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KosenStrideTopAppBar(navController: NavController) {
+fun KosenStrideTopAppBar(
+    title: @Composable () -> Unit = {},
+    navigationIcon: @Composable () -> Unit,
+    actions: @Composable RowScope.() -> Unit = {},
+) {
     CenterAlignedTopAppBar(
-        title = {
-            Text(
-                text = "Kosen Stride",
-                style =
-                    TextStyle(
-                        fontSize = 16.sp,
-                        lineHeight = 16.sp,
-                        fontWeight = FontWeight(700),
-                        textAlign = TextAlign.Center,
-                        letterSpacing = 0.7.sp,
-                    ),
-            )
-        },
-        navigationIcon = {
-            IconButton(onClick = { navController.navigate("MyAccount") }) {
-                Icon(
-                    imageVector = Icons.Filled.AccountCircle,
-                    contentDescription = "アカウントアイコン",
-                    modifier = Modifier.width(24.dp),
-                )
-            }
-        },
-        actions = {
-            IconButton(onClick = { navController.navigate("setting") }) {
-                Icon(imageVector = Icons.Default.Settings, contentDescription = "設定")
-            }
-        },
+        title = title,
+        navigationIcon = navigationIcon,
+        actions = actions,
         colors =
             TopAppBarDefaults.centerAlignedTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),

@@ -1,5 +1,7 @@
 package com.example.kosenstride.ui.todo.component
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -31,7 +33,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import com.example.kosenstride.data.local.entities.TodoEntity
 import com.example.kosenstride.ui.todo.TodoListViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ListCard(
     cardItem: TodoEntity,
@@ -54,7 +56,7 @@ fun ListCard(
         if (cardItem.notifications) {
             MaterialTheme.colorScheme.primary
         } else {
-            Color.DarkGray
+            MaterialTheme.colorScheme.secondary
         }
     val switchShareIcon =
         if (cardItem.share) {
@@ -74,7 +76,7 @@ fun ListCard(
                 .padding(start = 8.dp, top = 4.dp, end = 8.dp)
                 .border(
                     width = 1.dp,
-                    color = Color(0xFF215FA6),
+                    color = MaterialTheme.colorScheme.primary,
                     shape = RoundedCornerShape(size = 5.dp),
                 )
                 .fillMaxWidth(),
@@ -87,7 +89,7 @@ fun ListCard(
                         fontSize = 16.sp,
                         lineHeight = 16.sp,
                         fontWeight = FontWeight(700),
-                        color = Color(0xFF3D4758),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         letterSpacing = 0.5.sp,
                     ),
                 modifier = Modifier.padding(4.dp),
@@ -100,7 +102,7 @@ fun ListCard(
                         fontSize = 14.sp,
                         lineHeight = 14.sp,
                         fontWeight = FontWeight(700),
-                        color = Color(0xFF3D4758),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         letterSpacing = 0.5.sp,
                     ),
             )
@@ -122,7 +124,7 @@ fun ListCard(
                             fontSize = 14.sp,
                             lineHeight = 14.sp,
                             fontWeight = FontWeight(700),
-                            color = Color(0xFF3D4758),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
                             textAlign = TextAlign.Right,
                             letterSpacing = 0.5.sp,
                         ),

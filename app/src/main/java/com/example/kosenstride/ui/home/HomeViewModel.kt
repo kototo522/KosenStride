@@ -1,4 +1,4 @@
-package com.example.kosenstride.ui.todo
+package com.example.kosenstride.ui.home
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
-class TodoListViewModel
+class HomeViewModel
 @Inject
 constructor(
     private val todoDao: TodoDao,

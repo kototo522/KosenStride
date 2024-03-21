@@ -25,8 +25,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.kosenstride.bottomBar.KosenStrideBottomBar
-import com.example.kosenstride.topAppBar.KosenStrideTopAppBar
+import com.example.kosenstride.navigation.bottomBar.KosenStrideBottomBar
+import com.example.kosenstride.navigation.topAppBar.KosenStrideTopAppBar
 import com.example.kosenstride.ui.chat.ChatScreen
 import com.example.kosenstride.ui.createTodo.CreateTodoScreen
 import com.example.kosenstride.ui.home.HomeScreen
@@ -60,7 +60,7 @@ fun Navigation() {
                                 fontWeight = FontWeight(700),
                                 textAlign = TextAlign.Center,
                                 letterSpacing = 0.7.sp,
-                                ),
+                            ),
                         )
                     },
                     navigationIcon = {

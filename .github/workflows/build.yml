@@ -27,8 +27,16 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-#      - name: Check spotless
-#        run: ./gradlew spotlessCheck --no-configuration-cache
+      - name: Check spotless
+        run: ./gradlew spotlessCheck --no-configuration-cache
+
+      - name: Run Reviewdog
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: spotless
+          tool_flags: ""
+          level: info
+          reporter: github-pr-review
 
       - name: Build project
         run: ./gradlew assemble

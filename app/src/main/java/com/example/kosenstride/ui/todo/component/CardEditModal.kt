@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -29,7 +28,7 @@ import com.example.kosenstride.ui.todo.TodoListViewModel
 fun CardEditModal(
     isEditModalVisible: MutableState<Boolean>,
     cardItem: TodoEntity,
-    viewModel: TodoListViewModel
+    viewModel: TodoListViewModel,
 ) {
     var editedTitleText by remember { mutableStateOf(cardItem.title) }
     var editedText by remember { mutableStateOf(cardItem.text) }
@@ -97,9 +96,15 @@ fun CardEditModal(
                         }
                         Button(
                             onClick = {
-
                                 isEditModalVisible.value = false
-                                viewModel.upsertTodo(cardItem.id, editedTitleText, editedText, dateTimeText, cardItem.notifications, cardItem.share)
+                                viewModel.upsertTodo(
+                                    cardItem.id,
+                                    editedTitleText,
+                                    editedText,
+                                    dateTimeText,
+                                    cardItem.notifications,
+                                    cardItem.share,
+                                )
                             },
                         ) {
                             Text(text = "完了")

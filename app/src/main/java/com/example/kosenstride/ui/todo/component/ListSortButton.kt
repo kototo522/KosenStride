@@ -9,6 +9,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,7 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ListSortButton(expanded: MutableState<Boolean>, sortType: MutableState<String>) {
+fun ListSortButton(
+    expanded: MutableState<Boolean>,
+    sortType: MutableState<String>,
+) {
     Button(
         onClick = { expanded.value = !expanded.value },
         modifier =
@@ -30,9 +34,14 @@ fun ListSortButton(expanded: MutableState<Boolean>, sortType: MutableState<Strin
             imageVector = Icons.Filled.ArrowDownward,
             contentDescription = "並び替え",
             modifier = Modifier.width(20.dp),
-            tint = Color.Black,
+            tint = MaterialTheme.colorScheme.onPrimaryContainer,
         )
-        Text(text = "並び替え", fontSize = 12.sp, modifier = Modifier.height(20.dp), color = Color.Black)
+        Text(
+            text = "並び替え",
+            fontSize = 12.sp,
+            modifier = Modifier.height(20.dp),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+        )
     }
     DropdownMenu(
         expanded = expanded.value,

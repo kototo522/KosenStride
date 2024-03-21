@@ -5,6 +5,7 @@ import androidx.room.Query
 import androidx.room.Upsert
 import com.example.kosenstride.data.local.entities.TodoEntity
 import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface TodoDao {
     @Query("SELECT * FROM todo")

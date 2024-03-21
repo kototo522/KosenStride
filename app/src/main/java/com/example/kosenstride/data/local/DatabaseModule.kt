@@ -1,7 +1,6 @@
 package com.example.kosenstride.data.local
 
 import android.content.Context
-import androidx.room.Dao
 import androidx.room.Room
 import com.example.kosenstride.data.local.dao.TodoDao
 import dagger.Module
@@ -16,10 +15,10 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideTodoDatabase(@ApplicationContext context: Context): AppDatabase =
-        Room.databaseBuilder(context, AppDatabase::class.java, "app-database").build()
+    fun provideTodoDatabase(
+        @ApplicationContext context: Context,
+    ): AppDatabase = Room.databaseBuilder(context, AppDatabase::class.java, "app-database").build()
 
     @Provides
     fun todoDao(database: AppDatabase): TodoDao = database.todoDao()
-
 }

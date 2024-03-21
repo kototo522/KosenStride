@@ -1,4 +1,4 @@
-package com.example.kosenstride.bottomBar
+package com.example.kosenstride.navigation.bottomBar
 
 import androidx.compose.foundation.background
 import androidx.compose.material3.Icon
@@ -12,11 +12,11 @@ import androidx.navigation.NavHostController
 import com.example.kosenstride.navigation.BottomBarItems
 
 @Composable
-fun KosenStrideBottomBar(screenItems:  List<BottomBarItems>, currentRoute: String?, navController: NavHostController) {
+fun KosenStrideBottomBar(screenItems: List<BottomBarItems>, currentRoute: String?, navController: NavHostController) {
     NavigationBar(
         modifier =
-        Modifier
-            .background(MaterialTheme.colorScheme.background),
+            Modifier
+                .background(MaterialTheme.colorScheme.background),
         contentColor = MaterialTheme.colorScheme.primary,
     ) {
         screenItems.forEach { screen ->

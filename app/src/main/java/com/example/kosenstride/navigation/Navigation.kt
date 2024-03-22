@@ -27,6 +27,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.kosenstride.navigation.bottomBar.KosenStrideBottomBar
 import com.example.kosenstride.navigation.topAppBar.KosenStrideTopAppBar
+import com.example.kosenstride.ui.settingItems.editTimeSchedule.EditTimeScheduleScreen
 import com.example.kosenstride.ui.chat.ChatScreen
 import com.example.kosenstride.ui.createTodo.CreateTodoScreen
 import com.example.kosenstride.ui.home.HomeScreen
@@ -121,7 +122,10 @@ fun Navigation() {
                     MyAccountScreen(navController)
                 }
                 composable(route = "setting") {
-                    SettingScreen()
+                    SettingScreen(navController)
+                }
+                composable(route = "editTimeSchedule") {
+                    EditTimeScheduleScreen()
                 }
             }
         }

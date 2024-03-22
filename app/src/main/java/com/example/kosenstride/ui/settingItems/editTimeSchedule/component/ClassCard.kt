@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -26,6 +28,7 @@ fun ClassCard(title: String, onItemClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(vertical = 12.dp, horizontal = 8.dp)
             .clickable { onItemClick() }
             .drawBehind {
                 drawLine(
@@ -41,16 +44,19 @@ fun ClassCard(title: String, onItemClick: () -> Unit) {
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
-                .padding(vertical = 20.dp, horizontal = 16.dp)
+                .padding(vertical = 12.dp, horizontal = 8.dp)
                 .weight(5f),
         )
         IconButton(
             modifier = Modifier
-                .padding(vertical = 20.dp, horizontal = 16.dp)
                 .weight(1f),
             onClick = { /*TODO*/ }
         ) {
-            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "その他")
+            Icon(
+                imageVector = Icons.Default.Edit,
+                contentDescription = "その他",
+                tint = MaterialTheme.colorScheme.onSurface,
+                )
         }
     }
 }

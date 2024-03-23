@@ -14,6 +14,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -24,6 +25,7 @@ fun ClassCard(title: String, onItemClick: () -> Unit) {
     val borderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
 
     Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onItemClick() }
@@ -41,12 +43,12 @@ fun ClassCard(title: String, onItemClick: () -> Unit) {
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier
-                .padding(vertical = 20.dp, horizontal = 16.dp)
+                .padding(vertical = 4.dp, horizontal = 16.dp)
                 .weight(5f),
         )
         IconButton(
             modifier = Modifier
-                .padding(vertical = 20.dp, horizontal = 16.dp)
+                .padding(vertical = 4.dp, horizontal = 16.dp)
                 .weight(1f),
             onClick = { /*TODO*/ }
         ) {

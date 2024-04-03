@@ -159,7 +159,8 @@ fun CreateTodoScreen(
                             text = addText,
                             date = date.value,
                             time = LocalTime.of(timePickerState.hour, timePickerState.minute),
-                            share = checkedState.value)
+                            share = checkedState.value
+                        )
                         navController.navigate(route = BottomBarItems.ToDoList.route)
                     }
                 },

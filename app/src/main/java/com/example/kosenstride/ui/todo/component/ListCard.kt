@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.kosenstride.data.local.entities.TodoEntity
+import com.example.kosenstride.ui.createTodo.component.formatToCustomDate
 import com.example.kosenstride.ui.todo.TodoListViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -114,7 +115,7 @@ fun ListCard(
                         .height(40.dp),
             ) {
                 Text(
-                    text = cardItem.dateTime,
+                    text = cardItem.dateTime.formatToCustomDate(),
                     modifier =
                         Modifier
                             .weight(4f)

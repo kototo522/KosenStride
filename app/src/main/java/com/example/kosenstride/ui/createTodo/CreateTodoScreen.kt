@@ -38,10 +38,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.kosenstride.navigation.BottomBarItems
 import com.example.kosenstride.ui.createTodo.component.AddItem
-import com.example.kosenstride.ui.createTodo.component.formatToCustomDate
 import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 
@@ -53,6 +51,9 @@ fun CreateTodoScreen(
     viewModel: CreateTodoViewModel = hiltViewModel(),
 ) {
     val todoUiState by viewModel.uiState.collectAsState()
+    val instant = Instant.now()
+    val zonedDateTime = instant.atZone(ZoneId.systemDefault())
+    val localDate = zonedDateTime.toLocalDate()
 
     val datePickerState =
         rememberDatePickerState(
@@ -61,15 +62,7 @@ fun CreateTodoScreen(
     val timePickerState = rememberTimePickerState()
     var addTitleText by remember { mutableStateOf("") }
     var addText by remember { mutableStateOf("") }
-    val date = remember {
-        mutableStateOf(
-            LocalDate.from(
-                LocalDateTime.now()
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate()
-            )
-        )
-    }
+    val date = remember { mutableStateOf<LocalDate>(localDate) }
     val time = remember { mutableStateOf<LocalTime>(LocalTime.of(23, 59)) }
     val checkedState = remember { mutableStateOf(false) }
     var datePickerExpended by remember { mutableStateOf(false) }
@@ -103,7 +96,7 @@ fun CreateTodoScreen(
         Text(text = "期限", fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp))
         Row(modifier = Modifier.padding(vertical = 8.dp)) {
             Text(
-                text = date.value.formatToCustomDate(),
+                text = date.value.toString(),
                 fontSize = 16.sp,
                 modifier =
                     Modifier
@@ -186,7 +179,7 @@ fun CreateTodoScreen(
                     text = "OK",
                     modifier = Modifier.padding(10.dp).clickable {
                         val selectedDateMillis = datePickerState.selectedDateMillis
-                        date.value = LocalDate.ofEpochDay(selectedDateMillis!!)
+                        date.value = Instant.ofEpochMilli(selectedDateMillis!!).atZone(ZoneId.systemDefault()).toLocalDate()
                         datePickerExpended = false
                     }
                 )

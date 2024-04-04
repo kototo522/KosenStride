@@ -10,10 +10,15 @@ import java.util.Locale
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun LocalDate.formatToCustomDate(): String {
-    val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 (E) HH時mm分", Locale.JAPANESE)
+    val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 (E)", Locale.JAPANESE)
     return this.format(formatter)
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+fun LocalDate.formatToCustomDateTime(): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 (E) HH時mm分", Locale.JAPANESE)
+    return this.format(formatter)
+}
 @RequiresApi(Build.VERSION_CODES.O)
 fun Long.formatToCustomDate(): String {
     val instant = Instant.ofEpochMilli(this)

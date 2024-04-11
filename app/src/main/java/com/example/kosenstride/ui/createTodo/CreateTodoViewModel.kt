@@ -10,7 +10,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.UUID
 import javax.inject.Inject
 
@@ -57,16 +61,20 @@ constructor(
     fun upsertTodo(
         title: String,
         text: String,
-        dateTime: String,
+        date: LocalDate,
+        time: LocalTime,
         share: Boolean,
     ) {
+        val localDateTime = LocalDateTime.of(date, time)
+        val dateTimeInstant = ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toInstant()
+
         viewModelScope.launch {
             todoDao.upsert(
                 TodoEntity(
                     id = UUID.randomUUID().toString(),
                     title = title,
                     text = text,
-                    dateTime = dateTime,
+                    dateTime = dateTimeInstant.toEpochMilli(),
                     notifications = true,
                     share = share,
                     latistDay = LocalDateTime.now().toString(),

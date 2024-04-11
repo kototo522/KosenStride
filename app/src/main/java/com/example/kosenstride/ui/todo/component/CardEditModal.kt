@@ -1,5 +1,7 @@
 package com.example.kosenstride.ui.todo.component
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +26,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.kosenstride.data.local.entities.TodoEntity
 import com.example.kosenstride.ui.todo.TodoListViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CardEditModal(
     isEditModalVisible: MutableState<Boolean>,
@@ -32,7 +35,7 @@ fun CardEditModal(
 ) {
     var editedTitleText by remember { mutableStateOf(cardItem.title) }
     var editedText by remember { mutableStateOf(cardItem.text) }
-    var dateTimeText by remember { mutableStateOf(cardItem.dateTime) }
+    var dateTimeLong by remember { mutableStateOf(cardItem.dateTime) }
 
     Column {
         Dialog(onDismissRequest = { isEditModalVisible.value = false }) {
@@ -57,25 +60,23 @@ fun CardEditModal(
                         )
                     }
                     Text(text = "内容", fontSize = 14.sp, modifier = Modifier.height(20.dp))
-                    editedText?.let {
-                        TextField(
-                            value = it,
-                            onValueChange = { text ->
-                                editedText = text
-                            },
-                            textStyle = TextStyle(fontSize = 14.sp),
-                            modifier =
-                                Modifier
-                                    .padding(vertical = 8.dp, horizontal = 20.dp)
-                                    .fillMaxWidth(),
-                        )
-                    }
+                    TextField(
+                        value = editedText,
+                        onValueChange = { text ->
+                            editedText = text
+                        },
+                        textStyle = TextStyle(fontSize = 14.sp),
+                        modifier =
+                            Modifier
+                                .padding(vertical = 8.dp, horizontal = 20.dp)
+                                .fillMaxWidth(),
+                    )
                     Text(text = "期限", fontSize = 14.sp, modifier = Modifier.height(20.dp))
-                    dateTimeText?.let {
+                    dateTimeLong.toString()?.let {
                         TextField(
                             value = it,
                             onValueChange = { text ->
-                                dateTimeText = text
+                                dateTimeLong = text.toLong()
                             },
                             textStyle = TextStyle(fontSize = 14.sp),
                             modifier =
@@ -101,7 +102,7 @@ fun CardEditModal(
                                     cardItem.id,
                                     editedTitleText,
                                     editedText,
-                                    dateTimeText,
+                                    dateTimeLong,
                                     cardItem.notifications,
                                     cardItem.share,
                                 )

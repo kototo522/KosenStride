@@ -64,7 +64,7 @@ constructor(
         id: String,
         title: String,
         text: String,
-        dateTime: String,
+        dateTime: Long,
         notification: Boolean,
         share: Boolean,
     ) {

@@ -38,11 +38,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.kosenstride.navigation.BottomBarItems
 import com.example.kosenstride.ui.createTodo.component.AddItem
-import com.example.kosenstride.ui.createTodo.component.ChangeDateFormat
 import java.time.Instant
-import java.time.LocalDateTime
+import java.time.LocalDate
+import java.time.LocalTime
 import java.time.ZoneId
-import java.util.Date
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +51,9 @@ fun CreateTodoScreen(
     viewModel: CreateTodoViewModel = hiltViewModel(),
 ) {
     val todoUiState by viewModel.uiState.collectAsState()
+    val instant = Instant.now()
+    val zonedDateTime = instant.atZone(ZoneId.systemDefault())
+    val localDate = zonedDateTime.toLocalDate()
 
     val datePickerState =
         rememberDatePickerState(
@@ -60,13 +62,8 @@ fun CreateTodoScreen(
     val timePickerState = rememberTimePickerState()
     var addTitleText by remember { mutableStateOf("") }
     var addText by remember { mutableStateOf("") }
-    val dateText =
-        remember {
-            mutableStateOf(
-                ChangeDateFormat(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())),
-            )
-        }
-    val timeText = remember { mutableStateOf("23:59") }
+    val date = remember { mutableStateOf<LocalDate>(localDate) }
+    val time = remember { mutableStateOf<LocalTime>(LocalTime.of(23, 59)) }
     val checkedState = remember { mutableStateOf(false) }
     var datePickerExpended by remember { mutableStateOf(false) }
     var timePickerExpended by remember { mutableStateOf(false) }
@@ -99,7 +96,7 @@ fun CreateTodoScreen(
         Text(text = "期限", fontSize = 14.sp, modifier = Modifier.padding(horizontal = 20.dp))
         Row(modifier = Modifier.padding(vertical = 8.dp)) {
             Text(
-                text = dateText.value,
+                text = date.value.toString(),
                 fontSize = 16.sp,
                 modifier =
                     Modifier
@@ -107,7 +104,7 @@ fun CreateTodoScreen(
                         .clickable { datePickerExpended = true },
             )
             Text(
-                text = timeText.value,
+                text = time.value.toString(),
                 fontSize = 16.sp,
                 modifier =
                     Modifier
@@ -150,7 +147,13 @@ fun CreateTodoScreen(
                     if (addTitleText == "" || addText == "") {
                         Toast.makeText(context, "入力されていない箇所があります", Toast.LENGTH_LONG).show()
                     } else {
-                        viewModel.upsertTodo(addTitleText, addText, dateText.value + " " + timeText.value, checkedState.value)
+                        viewModel.upsertTodo(
+                            title = addTitleText,
+                            text = addText,
+                            date = date.value,
+                            time = LocalTime.of(timePickerState.hour, timePickerState.minute),
+                            share = checkedState.value
+                        )
                         navController.navigate(route = BottomBarItems.ToDoList.route)
                     }
                 },
@@ -174,14 +177,11 @@ fun CreateTodoScreen(
             confirmButton = {
                 Text(
                     text = "OK",
-                    modifier =
-                        Modifier
-                            .padding(10.dp)
-                            .clickable {
-                                val selectedDateMillis = datePickerState.selectedDateMillis
-                                dateText.value = ChangeDateFormat(Date(selectedDateMillis!!))
-                                datePickerExpended = false
-                            },
+                    modifier = Modifier.padding(10.dp).clickable {
+                        val selectedDateMillis = datePickerState.selectedDateMillis
+                        date.value = Instant.ofEpochMilli(selectedDateMillis!!).atZone(ZoneId.systemDefault()).toLocalDate()
+                        datePickerExpended = false
+                    }
                 )
             },
         ) {
@@ -207,7 +207,7 @@ fun CreateTodoScreen(
                         Modifier
                             .padding(10.dp)
                             .clickable {
-                                timeText.value = String.format("%02d:%02d", timePickerState.hour, timePickerState.minute)
+                                time.value = LocalTime.of(timePickerState.hour, timePickerState.minute)
                                 timePickerExpended = false
                             },
                 )

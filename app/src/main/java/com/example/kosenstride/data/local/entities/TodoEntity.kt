@@ -9,7 +9,7 @@ data class TodoEntity(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "text") val text: String,
-    @ColumnInfo(name = "dateTime") val dateTime: String,
+    @ColumnInfo(name = "dateTime") val dateTime: Long,
     @ColumnInfo(name = "notifications") var notifications: Boolean,
     @ColumnInfo(name = "share") var share: Boolean,
     @ColumnInfo(name = "latistDay") var latistDay: String,

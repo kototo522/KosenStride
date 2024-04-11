@@ -2,6 +2,7 @@ package com.example.kosenstride.data.local
 
 import android.content.Context
 import androidx.room.Room
+import com.example.kosenstride.data.local.dao.SubjectDao
 import com.example.kosenstride.data.local.dao.TodoDao
 import dagger.Module
 import dagger.Provides
@@ -21,4 +22,7 @@ object DatabaseModule {
 
     @Provides
     fun todoDao(database: AppDatabase): TodoDao = database.todoDao()
+
+    @Provides
+    fun subjectDao(database: AppDatabase): SubjectDao = database.subjectDao()
 }

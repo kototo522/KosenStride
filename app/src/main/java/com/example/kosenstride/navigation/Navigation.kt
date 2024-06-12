@@ -32,6 +32,7 @@ import com.example.kosenstride.ui.createTodo.CreateTodoScreen
 import com.example.kosenstride.ui.home.HomeScreen
 import com.example.kosenstride.ui.myAccount.MyAccountScreen
 import com.example.kosenstride.ui.setting.SettingScreen
+import com.example.kosenstride.ui.settingItems.editTimeSchedule.EditTimeScheduleScreen
 import com.example.kosenstride.ui.todo.ToDoListScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -121,7 +122,10 @@ fun Navigation() {
                     MyAccountScreen(navController)
                 }
                 composable(route = "setting") {
-                    SettingScreen()
+                    SettingScreen(navController)
+                }
+                composable(route = "editTimeSchedule") {
+                    EditTimeScheduleScreen()
                 }
             }
         }

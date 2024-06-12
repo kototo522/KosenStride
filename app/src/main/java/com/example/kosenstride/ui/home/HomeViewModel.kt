@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.kosenstride.data.local.dao.SubjectDao
 import com.example.kosenstride.data.local.dao.TodoDao
 import com.example.kosenstride.data.local.entities.TodoEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +19,7 @@ class HomeViewModel
 @Inject
 constructor(
     private val todoDao: TodoDao,
+    private val subjectDao: SubjectDao,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TodoUiState())
     val uiState = _uiState.asStateFlow()
@@ -102,6 +104,11 @@ constructor(
             )
         }
     }
+
+    fun observeAllSubject() =
+        viewModelScope.launch {
+            subjectDao.observeAll()
+        }
 }
 
 data class TodoUiState(

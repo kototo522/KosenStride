@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.kosenstride.ui.setting.component.SettingCard
@@ -19,7 +18,7 @@ fun SettingScreen(
 ) {
     val settingsList = listOf(
         SettingItem("プロフィール編集") { /* Handle click */ },
-        SettingItem("時間割編集[全体公開]") { navController.navigate("editTimeSchedule")  },
+        SettingItem("時間割編集[全体公開]") { navController.navigate("editTimeSchedule") },
     )
     LazyColumn(
         modifier = Modifier
@@ -31,7 +30,8 @@ fun SettingScreen(
             val setting = settingsList[index]
             SettingCard(
                 title = setting.title,
-                onItemClick = setting.onClick)
+                onItemClick = setting.onClick
+            )
         }
     }
 }

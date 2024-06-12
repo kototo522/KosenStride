@@ -27,12 +27,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.kosenstride.navigation.bottomBar.KosenStrideBottomBar
 import com.example.kosenstride.navigation.topAppBar.KosenStrideTopAppBar
-import com.example.kosenstride.ui.settingItems.editTimeSchedule.EditTimeScheduleScreen
 import com.example.kosenstride.ui.chat.ChatScreen
 import com.example.kosenstride.ui.createTodo.CreateTodoScreen
 import com.example.kosenstride.ui.home.HomeScreen
 import com.example.kosenstride.ui.myAccount.MyAccountScreen
 import com.example.kosenstride.ui.setting.SettingScreen
+import com.example.kosenstride.ui.settingItems.editTimeSchedule.EditTimeScheduleScreen
 import com.example.kosenstride.ui.todo.ToDoListScreen
 
 @RequiresApi(Build.VERSION_CODES.O)

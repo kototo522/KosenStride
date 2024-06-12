@@ -1,22 +1,17 @@
 package com.example.kosenstride.ui.setting.component
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.kosenstride.R
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun SettingCard(title: String, onItemClick: () -> Unit) {
@@ -39,7 +34,7 @@ fun SettingCard(title: String, onItemClick: () -> Unit) {
             text = title,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
         )
     }
 }
@@ -47,5 +42,5 @@ fun SettingCard(title: String, onItemClick: () -> Unit) {
 @Preview
 @Composable
 fun PreviewSettingCard() {
-    SettingCard(title = "title", onItemClick = {},)
+    SettingCard(title = "title", onItemClick = {})
 }

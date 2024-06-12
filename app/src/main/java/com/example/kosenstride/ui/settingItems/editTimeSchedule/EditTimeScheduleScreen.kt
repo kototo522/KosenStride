@@ -46,7 +46,7 @@ fun EditTimeScheduleScreen() {
     ) {
         items(data.value.size) { index ->
             val item = data.value[index]
-            if(index % 4 == 0){
+            if (index % 4 == 0) {
                 Text(
                     text = dayList[index / 3] + "曜日",
                     style = MaterialTheme.typography.titleMedium,

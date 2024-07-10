@@ -8,4 +8,7 @@ import com.example.kosenstride.data.local.entities.TodoEntity
 @Database(entities = [TodoEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
+    companion object {
+        const val DATABASE_NAME: String = "todo_db"
+    }
 }

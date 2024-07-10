@@ -1,7 +1,5 @@
 package com.example.kosenstride.data.repository
 
-import androidx.room.Query
-import androidx.room.Upsert
 import com.example.kosenstride.data.local.entities.TodoEntity
 import kotlinx.coroutines.flow.Flow
 

@@ -93,7 +93,7 @@ class TodoDaoTest {
             assertEquals(2, todos.size)
             assertTrue(todos.contains(todo1))
             assertTrue(todos.contains(todo2))
-    }
+        }
 
     @Test
     fun observeTodoById() =

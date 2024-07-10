@@ -4,8 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kosenstride.data.local.dao.TodoDao
 import com.example.kosenstride.data.local.entities.TodoEntity
+import com.example.kosenstride.data.repository.TodoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,39 +22,49 @@ import javax.inject.Inject
 class CreateTodoViewModel
 @Inject
 constructor(
-    private val todoDao: TodoDao,
+    private val todoRepository: TodoRepository,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TodoUiState())
     val uiState = _uiState.asStateFlow()
 
     fun observeAllToto() =
         viewModelScope.launch {
-            todoDao.observeAll()
+            todoRepository.observeAll()
         }
 
     fun observeTodo(id: String) =
         viewModelScope.launch {
-            todoDao.observeById(id)
+            todoRepository.observeById(id)
+        }
+
+    fun getAllTodo() =
+        viewModelScope.launch {
+            todoRepository.getAll()
+        }
+
+    fun getTodoById(id: String) =
+        viewModelScope.launch {
+            todoRepository.getById(id)
         }
 
     fun upsert(todo: TodoEntity) =
         viewModelScope.launch {
-            todoDao.upsert(todo)
+            todoRepository.upsert(todo)
         }
 
     fun upsertAll(todos: List<TodoEntity>) =
         viewModelScope.launch {
-            todoDao.upsertAll(todos)
+            todoRepository.upsertAll(todos)
         }
 
     fun deleteById(id: String) =
         viewModelScope.launch {
-            todoDao.deleteById(id)
+            todoRepository.deleteById(id)
         }
 
     fun deleteAll() =
         viewModelScope.launch {
-            todoDao.deleteAll()
+            todoRepository.deleteAll()
         }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -69,7 +79,7 @@ constructor(
         val dateTimeInstant = ZonedDateTime.of(localDateTime, ZoneId.systemDefault()).toInstant()
 
         viewModelScope.launch {
-            todoDao.upsert(
+            todoRepository.upsert(
                 TodoEntity(
                     id = UUID.randomUUID().toString(),
                     title = title,

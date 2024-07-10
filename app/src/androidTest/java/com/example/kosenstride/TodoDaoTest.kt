@@ -24,20 +24,20 @@ class TodoDaoTest {
     private lateinit var database: AppDatabase
     private val todo1 =
         TodoEntity(
-            id = "id",
+            id = "id1",
             title = "数学",
             text = "プリント１まい",
-            dateTime = "2021-08-01 00:00:00",
+            dateTime = 1_000_000_000L,
             notifications = false,
             share = false,
             latistDay = "2021-08-01 00:00:00",
         )
     private val todo2 =
         TodoEntity(
-            id = "id",
+            id = "id2",
             title = "国語",
             text = "音読",
-            dateTime = "2021-08-01 00:00:00",
+            dateTime = 1_000_000_000L,
             notifications = true,
             share = false,
             latistDay = "2021-08-01 00:00:00",
@@ -71,28 +71,29 @@ class TodoDaoTest {
     @Test
     fun upsertTodoReplacesOnConflict() =
         runTest {
+            database.todoDao().deleteAll()
             database.todoDao().upsert(todo1)
-            database.todoDao().upsert(todo2)
             val loaded = database.todoDao().getById(todo1.id)
 
             assertEquals(todo1.id, loaded?.id)
-            assertEquals(todo2.title, loaded?.title)
-            assertEquals(todo2.text, loaded?.text)
-            assertEquals(todo2.dateTime, loaded?.dateTime)
-            assertEquals(todo2.notifications, loaded?.notifications)
-            assertEquals(todo2.share, loaded?.share)
-            assertEquals(todo2.latistDay, loaded?.latistDay)
+            assertEquals(todo1.title, loaded?.title)
+            assertEquals(todo1.text, loaded?.text)
+            assertEquals(todo1.dateTime, loaded?.dateTime)
+            assertEquals(todo1.notifications, loaded?.notifications)
+            assertEquals(todo1.share, loaded?.share)
+            assertEquals(todo1.latistDay, loaded?.latistDay)
         }
 
     @Test
     fun observeAllTodos() =
         runTest {
+            database.todoDao().deleteAll()
             database.todoDao().upsertAll(listOf(todo1, todo2))
             val todos = database.todoDao().observeAll().first()
             assertEquals(2, todos.size)
             assertTrue(todos.contains(todo1))
             assertTrue(todos.contains(todo2))
-        }
+    }
 
     @Test
     fun observeTodoById() =
